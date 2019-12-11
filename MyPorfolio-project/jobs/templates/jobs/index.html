@@ -77,14 +77,14 @@
 
 <main role="main">
   <section class="jumbotron text-center">
-    <div class="container">
-      <h1>Header example</h1>
+    <div class="col-md-4">
+          <h1>Sergey Davydov</h1>
       <p class="lead text-muted">Some text about project.</p>
+      <img src="{% static '144b5c36-4217-46f3-ac56-8d905c6e5023.jpg' %}" height=300> <img/>
       <p>
         <a href="mailto:davydovsergey.sd@gmail.com" class="btn btn-primary my-2">Email to me</a>
-      </p>
-      <img src="{% static '144b5c36-4217-46f3-ac56-8d905c6e5023.jpg' %}" height=300> <img/>
-    </div>
+      </p>     
+    </div>     
   </section>
 
   <div class="album py-5 bg-light">
@@ -100,7 +100,7 @@
             <div class="card-body">
               <p class="card-text">{{job.summary}}</p>
               <div class="d-flex justify-content-between align-items-center">             
-                <small class="text-muted">9 mins</small>
+                <small class="text-muted">{{job.adddate}}</small>
               </div>
             </div>
           </div>
