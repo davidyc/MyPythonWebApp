@@ -10,3 +10,7 @@ def main(request):
 def details(request, job_id):
     job_detail = get_object_or_404(Job, pk=job_id)
     return render(request, 'jobs/details.html',{'job': job_detail})
+
+def devinfo(request, dev_id):
+    dev_detail = get_object_or_404(Developer, pk=dev_id)
+    return render(request, 'jobs/devinfo.html',{'dev': dev_detail})
