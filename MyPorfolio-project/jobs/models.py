@@ -11,3 +11,11 @@ class Job(models.Model):
 
     def __srt__(self):
         return self.summary
+
+class Developer(models.Model):
+    image = models.ImageField(upload_to="image/photos")
+    name = models.CharField(max_length=50)
+    borndate = models.DateField()
+    company = models.CharField(max_length=50)
+    postion = models.CharField(max_length=50)
+    email = models.EmailField(unique=True)
