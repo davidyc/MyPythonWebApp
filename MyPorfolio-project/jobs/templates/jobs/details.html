@@ -78,39 +78,16 @@
 <main role="main">
   <section class="jumbotron text-center">
     <div class="container">
-      <h1>Header example</h1>
-      <p class="lead text-muted">Some text about project.</p>
+      <h1>Jobs Name</h1>
+      <p class="lead text-muted">{{ job.summary }}</p>
+      <img class="card-img-top" src="{{job.image.url}}" height=300></img>
       <p>
-        <a href="mailto:davydovsergey.sd@gmail.com" class="btn btn-primary my-2">Email to me</a>
+        <a href="" class="btn btn-primary my-2">Look It</a>
+        <a href="{% url 'Home' %}" class="btn btn-primary my-2">Back</a>
       </p>
-      <img src="{% static '144b5c36-4217-46f3-ac56-8d905c6e5023.jpg' %}" height=300> <img/>
+      
     </div>
   </section>
-
-  <div class="album py-5 bg-light">
-    <div class="container">
-
-      <div class="row">
-      {% for job in jobs.all %}   
-
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-          <a href="{% url 'detail' job.id %}">
-            <img class="card-img-top" src="{{job.image.url}}" height=300>
-            <div class="card-body">
-              <p class="card-text">{{job.summary}}</p>
-              <div class="d-flex justify-content-between align-items-center">             
-                <small class="text-muted">9 mins</small>
-              </div>
-            </div>
-          </div>
-          </a>
-        </div>
-
-       {% endfor%}  
-      </div>
-    </div>
-  </div>
 
 </main>
 <script src="{% static 'jquery-3.4.1.min.js' %}"></script>
