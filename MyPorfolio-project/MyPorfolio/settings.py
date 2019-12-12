@@ -80,7 +80,8 @@ WSGI_APPLICATION = 'MyPorfolio.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {} 
-DATABASES ['default'] = dj_database_url.config (conn_max_age = 600)
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation
@@ -126,8 +127,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR
 
 # Heroku: Update database configuration from $DATABASE_URL.
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
