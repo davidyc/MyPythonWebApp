@@ -22,11 +22,16 @@ class Theme(models.Model):
         return self.title
 
 class Phase(models.Model):
-    number = models.IntegerField()
+    number = models.IntegerField(unique=True)
     startDate = models.DateField()
-    finishDate = models.DateField()
-    theme = models.ForeignKey(Theme, on_delete=models.CASCADE)
-    player = models.ForeignKey(Player, on_delete=models.CASCADE)
-
+    finishDate = models.DateField()    
+    
     def __str__(self):
-        return "Phase {} {} ".format(str(self.number),self.theme.title)
+        return "Phase {} {}-{} ".format(str(self.number),str(self.startDate), str(self.finishDate))
+
+class PhaseTheme(models.Model):
+    theme = models.ForeignKey(Theme, on_delete=models.CASCADE)
+    phase = models.ForeignKey(Phase, on_delete=models.CASCADE)
+   
+    def __str__(self):
+        return "{} {} ".format(str(self.phase),self.theme)
