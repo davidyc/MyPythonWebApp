@@ -27,6 +27,7 @@ urlpatterns = [
     path('jobs/<int:job_id>', jobs.views.details, name='detail'),
     path('devinfo/<int:dev_id>', jobs.views.devinfo, name='devinfo'),
     path('jobs/evo', evolution.views.main, name='evo'),
+    path('jobs/themes', evolution.views.themes, name='themes'),
 ] 
 
 urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) 

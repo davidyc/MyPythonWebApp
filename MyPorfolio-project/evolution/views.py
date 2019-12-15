@@ -6,6 +6,7 @@ def main(request):
     players = Player.objects
     return render(request, 'evo/index.html', {'players': players})
 
-    
+def themes(request):    
+    return render(request, 'evo/themes.html')   
   
    
