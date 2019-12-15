@@ -26,7 +26,7 @@ urlpatterns = [
     path('', jobs.views.main, name ='Home'),
     path('jobs/<int:job_id>', jobs.views.details, name='detail'),
     path('devinfo/<int:dev_id>', jobs.views.devinfo, name='devinfo'),
-    path('evo', evolution.views.main, name='evomain'),
+    path('jobs/evo', evolution.views.main, name='evo'),
 ] 
 
 urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) 
