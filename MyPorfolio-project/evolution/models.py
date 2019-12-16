@@ -42,3 +42,8 @@ class _phase():
     def __init__(self, name):
         self.name = name
         self.themes = list()
+
+class _theme():
+    def __init__(self, name):
+        self.name = name
+        self.themes = list()
