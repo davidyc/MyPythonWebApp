@@ -3,15 +3,35 @@ from django.shortcuts import render
 from .models import Player, Section, Theme, Phase, PhaseTheme
 
 # Create your views here.
-def main(request):
-    today = date.today()
+def main(request):   
     players = Player.objects
-    phase = Phase.objects.get(id=2)
-    return render(request, 'evo/index.html', {'players': players, 'phase':phase})
+    phaseLast = Phase.objects.latest('startDate')
+    phaseTheme = _gettheme(phaseLast)
+    num = _progressPercent(phaseLast)
+   
+    return render(request, 'evo/index.html', {'players': players, 'phase':phaseLast, 
+    'num': num, '5themes': phaseTheme})
 
 def themes(request):    
     sections = Section.objects
     themes = Theme.objects
     return render(request, 'evo/themes.html', {'sections' : sections, 'themes' : themes })   
   
-   
+
+
+def _gettheme(phaseLast):
+    if phaseLast != None:
+       return PhaseTheme.objects.filter(phase=phaseLast)
+    else:
+       return None
+
+def _progressPercent(phaseLast : Phase):
+    start = phaseLast.startDate    
+    finish = phaseLast.finishDate
+    today = date.today()
+    maxpercent = (finish-start).days
+    realpercent = (finish -today).days
+    per = realpercent*100//maxpercent
+    if per > 100 or per < 0:
+        return 100
+    return 100 - per
