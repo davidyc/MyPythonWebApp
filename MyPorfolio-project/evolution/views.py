@@ -7,15 +7,13 @@ def main(request):
     players = Player.objects
     phaseLast = Phase.objects.latest('startDate')
     phaseTheme = _gettheme(phaseLast)
-    num = _progressPercent(phaseLast)
-   
+    num = _progressPercent(phaseLast)   
     return render(request, 'evo/index.html', {'players': players, 'phase':phaseLast, 
     'num': num, 'themes': phaseTheme})
 
-def themes(request):    
-    sections = Section.objects
+def themes(request):   
     themes = Theme.objects
-    return render(request, 'evo/themes.html', {'sections' : sections, 'themes' : themes })   
+    return render(request, 'evo/themes.html', {'themes' : themes })   
   
 
 
