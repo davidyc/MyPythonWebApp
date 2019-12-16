@@ -1,6 +1,6 @@
 from datetime import date
 from django.shortcuts import render
-from .models import Player, Section, Theme, Phase, PhaseTheme
+from .models import Player, Section, Theme, Phase, PhaseTheme, _phase
 
 # Create your views here.
 def main(request):   
@@ -16,8 +16,15 @@ def themes(request):
     return render(request, 'evo/themes.html', {'themes' : themes })   
 
 def phases(request):
-    themes = PhaseTheme.objects
-    return render(request, 'evo/phases.html', {'themes' : themes })  
+    phase = Phase.objects.all()  
+    allPhases = list()  
+    for i in phase:
+        tmp = _phase(i)       
+        allthemes = PhaseTheme.objects.filter(phase=i)
+        for ii in allthemes:
+            tmp.themes.append(ii.theme)  
+        allPhases.append(tmp) 
+    return render(request, 'evo/phases.html', {'allPhases' : allPhases })  
   
 
 

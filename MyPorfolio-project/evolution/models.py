@@ -35,3 +35,10 @@ class PhaseTheme(models.Model):
    
     def __str__(self):
         return "{} {} ".format(str(self.phase),self.theme)
+
+
+
+class _phase():
+    def __init__(self, name):
+        self.name = name
+        self.themes = list()
