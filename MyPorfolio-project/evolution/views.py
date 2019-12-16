@@ -14,6 +14,10 @@ def main(request):
 def themes(request):   
     themes = Theme.objects
     return render(request, 'evo/themes.html', {'themes' : themes })   
+
+def phases(request):
+    themes = PhaseTheme.objects
+    return render(request, 'evo/phases.html', {'themes' : themes })  
   
 
 

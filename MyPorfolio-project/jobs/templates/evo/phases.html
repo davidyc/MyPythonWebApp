@@ -59,7 +59,7 @@
             <a class="nav-link" href="{% url 'themes' %}">Themes</a>
           </li>    
           <li class="nav-item">
-            <a class="nav-link" href="#">Phases</a>
+            <a class="nav-link" href="{% url 'phases' %}">Phases</a>
           </li>        
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -80,16 +80,18 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Part</th>
-              <th>Name</th>             
+              <th>Start</th>
+              <th>Finish</th>    
+              <th>Subject</th>       
             </tr>
           </thead>
           <tbody>
             {%for th in themes.all%}
             <tr>
-              <td>{{th.id}}</td>
-              <td>{{th.section}}</td>
-              <td>{{th}}</td>              
+              <td>{{th.phase.number}}</td>
+              <td>{{th.phase.startDate}}</td>
+              <td>{{th.phase.finishDate}}</td> 
+              <td>{{th.theme}}</td>           
             </tr>
             {% endfor%}  
            </tbody>
