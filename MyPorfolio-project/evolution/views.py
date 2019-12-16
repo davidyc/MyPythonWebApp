@@ -10,7 +10,7 @@ def main(request):
     num = _progressPercent(phaseLast)
    
     return render(request, 'evo/index.html', {'players': players, 'phase':phaseLast, 
-    'num': num, '5themes': phaseTheme})
+    'num': num, 'themes': phaseTheme})
 
 def themes(request):    
     sections = Section.objects
