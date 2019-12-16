@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import jobs.views
+import evolution.views
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -25,6 +26,9 @@ urlpatterns = [
     path('', jobs.views.main, name ='Home'),
     path('jobs/<int:job_id>', jobs.views.details, name='detail'),
     path('devinfo/<int:dev_id>', jobs.views.devinfo, name='devinfo'),
+    path('jobs/evo', evolution.views.main, name='evo'),
+    path('jobs/themes', evolution.views.themes, name='themes'),
+    path('jobs/phases', evolution.views.phases, name='phases'),
 ] 
 
 urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) 
