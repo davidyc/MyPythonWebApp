@@ -35,7 +35,12 @@ def phases(request):
         allPhases.append(tmp)   
     hasCurrent = _hascurrent()     
     return render(request, 'evo/phases.html', {'allPhases' : allPhases, 'hasCurrent' : hasCurrent })  
+ 
   
+def addphases(request):     
+    return render(request, 'evo/addphases.html')  
+  
+
 
 
 def _gettheme(phaseLast):
