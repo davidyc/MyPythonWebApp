@@ -32,8 +32,9 @@ def phases(request):
         allthemes = PhaseTheme.objects.filter(phase=i)
         for ii in allthemes:
             tmp.themes.append(ii.theme)  
-        allPhases.append(tmp) 
-    return render(request, 'evo/phases.html', {'allPhases' : allPhases })  
+        allPhases.append(tmp)   
+    hasCurrent = _hascurrent()     
+    return render(request, 'evo/phases.html', {'allPhases' : allPhases, 'hasCurrent' : hasCurrent })  
   
 
 
@@ -53,3 +54,11 @@ def _progressPercent(phaseLast : Phase):
     if per > 100 or per < 0:
         return 100
     return 100 - per
+
+def _hascurrent():
+    phase = Phase.objects.latest('finishDate')  
+    today = date.today()
+    if today >= phase.finishDate:
+        return None
+    else:
+        return phase

@@ -94,7 +94,18 @@
         </table>
       </div>
       {% endfor%}  
-    </main>    
+      <hr>  
+      {% if hasCurrent != Nome %}
+      <h3>Current phase is {{hasCurrent}}</h3>
+      {% else %}
+      <h3>No current phase </h3>
+      <a href="{% url 'themes' %}"><button type="button" class="btn btn-primary">Add phase</button></a>
+      {% endif %}
+      
+    </main>  
+    <br> 
+    <br> 
+    
   </div>
 </div>
 <script src="{% static 'jquery-3.4.1.min.js' %}"></script>
