@@ -4,4 +4,5 @@ from .models import Phase
 class PhaseForm(ModelForm):
     class Meta:
         model = Phase
-        fields = ("number", "finishDate",)           
+        fields = ("finishDate",)   
+          

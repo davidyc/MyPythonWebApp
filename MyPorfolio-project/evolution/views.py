@@ -42,20 +42,14 @@ def addphases(request):
     if request.method == 'POST':          
         form = PhaseForm(request.POST)      
         if form.is_valid(): 
-            new_Phase = form.save(commit=False)
-            new_Phase.startDate = date.today()            
-            new_Phase.save()            
+            _addnewphase(form)
+           
+            # add page successful 
             return phases(request)          
     else:
         form = PhaseForm()
-    return render(request, 'evo/addphases.html', {'form': form})  
+    return render(request, 'evo/addphases.html', {'form': form})    
 
-   
-  
-    
-
-
-  
 
 
 
@@ -83,3 +77,15 @@ def _hascurrent():
         return None
     else:
         return phase
+
+def _getnextphasenubmer():
+    phase = Phase.objects.latest('number')  
+    return phase.number + 1 
+
+def _addnewphase(form):
+    new_Phase = form.save(commit=False)
+    new_Phase.startDate = date.today()             
+    new_Phase.number = _getnextphasenubmer()
+    new_Phase.save()  
+    
+   

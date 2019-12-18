@@ -70,14 +70,23 @@
     </nav>
     <br> 
     <br>
-
-
+   <main role="main" class="col-md-4 ml-sm-auto col-lg-11"> 
+      <canvas class="my-4 w-100" id="myChart" width="900" height="0"></canvas>
+      
         <form action="{% url 'addphases' %}" method="post">
-          {% csrf_token %}
-          {{ form }}
-        <input type="submit" value="Submit">
+          <h3>Finish date</h3>          
+          {% csrf_token %}  
+          {{ form.finishDate }}
+          <small id="passwordHelpInline" class="text-muted">Format yyyy-mm-dd</small>        
+          <br>         
+          <input type="submit" class="btn btn-success" value="Submit">
       </form>
 
+
+
+    </main>  
+
+    
 
     
     <br> 
