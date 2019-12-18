@@ -68,41 +68,27 @@
         </form>
       </div>
     </nav>
-
-      
-
-    <main role="main" class="col-md-4 ml-sm-auto col-lg-11">
+    <br> 
+    <br>
+   <main role="main" class="col-md-4 ml-sm-auto col-lg-11"> 
       <canvas class="my-4 w-100" id="myChart" width="900" height="0"></canvas>
-      {%for tmp in allPhases%}
-      <h2>{{tmp.name}}</h2>
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th>Section</th>
-              <th>Name</th>              
-            </tr>
-          </thead>
-          <tbody>
-            {%for th in tmp.themes%}
-            <tr>              
-              <td>{{th.section}}</td>   
-              <td>{{th.title}}</td>                 
-            </tr>
-            {% endfor%}  
-           </tbody>
-        </table>
-      </div>
-      {% endfor%}  
-      <hr>  
-      {% if hasCurrent != Nome %}
-      <h3>Current phase is {{hasCurrent}}</h3>
-      {% else %}
-      <h3>No current phase </h3>
-      <a href="{% url 'addphases' %}"><button type="button" class="btn btn-primary">Add phase</button></a>
-      {% endif %}
       
+        <form action="{% url 'addphases' %}" method="post">
+          <h3>Finish date</h3>          
+          {% csrf_token %}  
+          {{ form.finishDate }}
+          <small id="passwordHelpInline" class="text-muted">Format yyyy-mm-dd</small>        
+          <br>         
+          <input type="submit" class="btn btn-success" value="Submit">
+      </form>
+
+
+
     </main>  
+
+    
+
+    
     <br> 
     <br> 
     
