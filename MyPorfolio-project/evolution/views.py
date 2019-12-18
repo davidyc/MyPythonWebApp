@@ -2,6 +2,7 @@ from datetime import date
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Player, Section, Theme, Phase, PhaseTheme, _phase, _theme
 from .forms import PhaseForm
+import random
 
 # Create your views here.
 def main(request):   
@@ -20,9 +21,7 @@ def themes(request):
         allthemes = Theme.objects.filter(section=sec)
         for ii in allthemes:
             tmp.themes.append(ii)  
-        allTheme.append(tmp) 
-        print(tmp.name)
-        print(tmp.themes)
+        allTheme.append(tmp)        
     return render(request, 'evo/themes.html', {'allTheme' : allTheme })   
 
 def phases(request):
@@ -43,7 +42,7 @@ def addphases(request):
         form = PhaseForm(request.POST)      
         if form.is_valid(): 
             _addnewphase(form)
-           
+                       
             # add page successful 
             return phases(request)          
     else:
@@ -86,6 +85,20 @@ def _addnewphase(form):
     new_Phase = form.save(commit=False)
     new_Phase.startDate = date.today()             
     new_Phase.number = _getnextphasenubmer()
-    new_Phase.save()  
+    new_Phase.save() 
+    _addthemetophase(new_Phase)
+     
+def _addthemetophase(new_Phase):
+    minCounttheme = 1
+    daystotheme = 7
+    countdays = (new_Phase.finishDate - new_Phase.startDate).days
+    countthemes = countdays // daystotheme + minCounttheme
+    
+
+
+    
+  
+
+
     
    

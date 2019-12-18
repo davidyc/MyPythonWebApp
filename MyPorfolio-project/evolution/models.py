@@ -16,6 +16,7 @@ class Section(models.Model):
 
 class Theme(models.Model):
     title = models.CharField(max_length=25)
+    done = models.BooleanField(default=False)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
 
     def __str__(self):
