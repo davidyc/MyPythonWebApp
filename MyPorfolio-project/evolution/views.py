@@ -1,5 +1,5 @@
 from datetime import date
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Player, Section, Theme, Phase, PhaseTheme, _phase, _theme
 from .forms import PhaseForm
 
@@ -38,10 +38,21 @@ def phases(request):
     return render(request, 'evo/phases.html', {'allPhases' : allPhases, 'hasCurrent' : hasCurrent })  
  
   
-def addphases(request):      
-    form = PhaseForm()   
-    print(form) 
-    return render(request, 'evo/addphases.html', {'form': form})   
+def addphases(request):  
+    if request.method == 'POST':          
+        form = PhaseForm(request.POST)      
+        if form.is_valid(): 
+            new_Phase = form.save(commit=False)
+            new_Phase.startDate = date.today()            
+            new_Phase.save()            
+            return phases(request)          
+    else:
+        form = PhaseForm()
+    return render(request, 'evo/addphases.html', {'form': form})  
+
+   
+  
+    
 
 
   
