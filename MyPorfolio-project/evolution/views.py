@@ -2,7 +2,7 @@ from datetime import date
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Player, Section, Theme, Phase, PhaseTheme, _phase, _theme
 from .forms import PhaseForm
-import random
+from random import randint
 
 # Create your views here.
 def main(request):   
@@ -93,10 +93,26 @@ def _addthemetophase(new_Phase):
     daystotheme = 7
     countdays = (new_Phase.finishDate - new_Phase.startDate).days
     countthemes = countdays // daystotheme + minCounttheme
-    
+    _addPhaseTheme(countthemes, new_Phase)
 
-
+def _addPhaseTheme(count, new_Phase):
+    indexforadd = _getRamdomIndex(count)
+    for i in range(len(indexforadd)):
+        pt = PhaseTheme()
+        pt.phase = new_Phase       
+        pt.theme = Theme.objects.get(id=indexforadd[i])
+        pt.save()
     
+def _getRamdomIndex(count):
+    themes = Theme.objects.filter(done=False)
+    indexes = list()
+    ranint = list()
+    for i in themes:
+        indexes.append(i.id)
+    for i in range(count):
+        value = randint(0, len(indexes)-1)
+        ranint.append(value)
+    return ranint
   
 
 
