@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from .models import Phase
 
-class ArticleForm(ModelForm):
+class PhaseForm(ModelForm):
     class Meta:
         model = Phase
-        
+        fields = ("number", "startDate", "finishDate",)           

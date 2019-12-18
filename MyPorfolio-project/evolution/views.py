@@ -1,6 +1,7 @@
 from datetime import date
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Player, Section, Theme, Phase, PhaseTheme, _phase, _theme
+from .forms import PhaseForm
 
 # Create your views here.
 def main(request):   
@@ -37,8 +38,12 @@ def phases(request):
     return render(request, 'evo/phases.html', {'allPhases' : allPhases, 'hasCurrent' : hasCurrent })  
  
   
-def addphases(request):     
-    return render(request, 'evo/addphases.html')  
+def addphases(request):      
+    form = PhaseForm()   
+    print(form) 
+    return render(request, 'evo/addphases.html', {'form': form})   
+
+
   
 
 
