@@ -68,7 +68,15 @@
         </form>
       </div>
     </nav>
+    <br> 
+    <br>
 
+
+        <form action="{% url 'addphases' %}" method="post">
+          {% csrf_token %}
+          {{ form }}
+        <input type="submit" value="Submit">
+      </form>
 
 
     
