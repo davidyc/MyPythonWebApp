@@ -77,42 +77,52 @@ def _hascurrent():
     else:
         return phase
 
-def _getnextphasenubmer():
-    phase = Phase.objects.latest('number')  
-    return phase.number + 1 
-
 def _addnewphase(form):
     new_Phase = form.save(commit=False)
     new_Phase.startDate = date.today()             
     new_Phase.number = _getnextphasenubmer()
-    new_Phase.save() 
-    _addthemetophase(new_Phase)
+    new_Phase.save()  
+    countthemes = _getCountThemeInPhase(new_Phase)    
+    print(countthemes)
+    indexSec = _getRamdomIndexArraySec(countthemes)
+    print(indexSec)   
+    _addPhaseTheme(indexSec, new_Phase)
+
+def _getnextphasenubmer():
+    phase = Phase.objects.latest('number')  
+    return phase.number + 1 
      
-def _addthemetophase(new_Phase):
+def _getCountThemeInPhase(new_Phase):
     minCounttheme = 1
     daystotheme = 7
     countdays = (new_Phase.finishDate - new_Phase.startDate).days
-    countthemes = countdays // daystotheme + minCounttheme
-    _addPhaseTheme(countthemes, new_Phase)
-
-def _addPhaseTheme(count, new_Phase):
-    indexforadd = _getRamdomIndex(count)
-    for i in range(len(indexforadd)):
-        pt = PhaseTheme()
-        pt.phase = new_Phase       
-        pt.theme = Theme.objects.get(id=indexforadd[i])
-        pt.save()
-    
-def _getRamdomIndex(count):
-    themes = Theme.objects.filter(done=False)
+    return countdays // daystotheme + minCounttheme
+  
+def _getRamdomIndexArraySec(count):
+    sec = Section.objects.filter(active=True)  
     indexes = list()
     ranint = list()
-    for i in themes:
-        indexes.append(i.id)
+    for i in sec:
+        indexes.append(i.id)            
     for i in range(count):
         value = randint(0, len(indexes)-1)
-        ranint.append(value)
+        ranint.append(indexes[value])
     return ranint
+
+def _addPhaseTheme(indexSec, new_Phase): 
+    for i in indexSec:
+        sec = Section.objects.get(id=i)  
+        theme = Theme.objects.filter(section=i).order_by('done')[0]       
+        print(theme)
+        pt = PhaseTheme()
+        pt.phase = new_Phase       
+        pt.theme = theme
+        pt.save()
+        theme.done = True
+        theme.save()
+
+       
+
   
 
 
