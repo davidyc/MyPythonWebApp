@@ -82,10 +82,8 @@ def _addnewphase(form):
     new_Phase.startDate = date.today()             
     new_Phase.number = _getnextphasenubmer()
     new_Phase.save()  
-    countthemes = _getCountThemeInPhase(new_Phase)    
-    print(countthemes)
+    countthemes = _getCountThemeInPhase(new_Phase)      
     indexSec = _getRamdomIndexArraySec(countthemes)
-    print(indexSec)   
     _addPhaseTheme(indexSec, new_Phase)
 
 def _getnextphasenubmer():
@@ -112,8 +110,7 @@ def _getRamdomIndexArraySec(count):
 def _addPhaseTheme(indexSec, new_Phase): 
     for i in indexSec:
         sec = Section.objects.get(id=i)  
-        theme = Theme.objects.filter(section=i).order_by('done')[0]       
-        print(theme)
+        theme = Theme.objects.filter(section=i).order_by('done')[0]   
         pt = PhaseTheme()
         pt.phase = new_Phase       
         pt.theme = theme
