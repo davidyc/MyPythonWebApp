@@ -10,12 +10,14 @@ class Player(models.Model):
 
 class Section(models.Model):
     title = models.CharField(max_length=25)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
 
 class Theme(models.Model):
     title = models.CharField(max_length=25)
+    done = models.BooleanField(default=False)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
 
     def __str__(self):
