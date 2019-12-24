@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 import jobs.views
 import evolution.views
+import simplebot.views
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -30,6 +31,7 @@ urlpatterns = [
     path('jobs/evo/themes', evolution.views.themes, name='themes'),
     path('jobs/evo/phases', evolution.views.phases, name='phases'),
     path('jobs/evo/addphases', evolution.views.addphases, name='addphases'),
+    path('jobs/bot', simplebot.views.main, name='bot'),
 ] 
 
 urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) 
