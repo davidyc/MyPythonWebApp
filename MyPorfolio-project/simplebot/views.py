@@ -1,17 +1,31 @@
 from django.shortcuts import render
+from .forms import WordForm
 import apiai, json, datetime
+
+dialogs = list()   
+name = ''
 
 # Create your views here.
 def main(request):  
-    return render(request, 'bot/index.html')
+    userform = WordForm()
+    return render(request, 'bot/index.html', {"form" : userform})
 
-def dialog(request):       
-    answer = _getresponse('Ты скучный')
-    told = dialoguser("Bender", answer)
-    dialogs = list()
-    dialogs.append(told)
-    
-    return render(request, 'bot/dialog.html', {'dialog': dialogs, "answer" : told })
+def dialog(request): 
+    userform = WordForm()
+    if request.method == "POST":  
+        global name   
+        say = request.GET.get("word")      
+        told = dialoguser(name, say)
+        dialogs.append(told)   
+
+        answer = _getresponse(say)    
+        told = dialoguser("Bender", answer)
+        dialogs.append(told)
+    else:
+        dialogs.clear()
+        name = request.GET.get("word")          
+   
+    return render(request, 'bot/dialog.html', {'dialog': dialogs, "form" : userform })
 
 
 def _getresponse(text):

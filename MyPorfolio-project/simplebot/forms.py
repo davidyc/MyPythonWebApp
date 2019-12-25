@@ -1,4 +1,4 @@
 from django import forms
  
-class NameForm(forms.Form):
-    name = forms.CharField()   
+class WordForm(forms.Form):
+    word = forms.CharField()   

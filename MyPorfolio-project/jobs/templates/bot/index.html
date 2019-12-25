@@ -29,12 +29,13 @@
     
 <center>
   <div class="col-2">
-      <form class="form-signin" method="POST"  action="{% url 'dialog' %}">   
+      <form class="form-signin" method="GET"  action="{% url 'dialog' %}">   
           {% csrf_token %}  
           <h1 class="h3 mb-3 font-weight-normal">Как тебя зовут?</h1>
           <label class="sr-only">Имя: </label>
-          <input class="form-control" type="text" id='username' placeholder="Введите имя" required autofocus>  
+          {{form}}          
           <br>  
+          
           <input type="submit" class="btn btn-success" value="Представиться">
       </form>
     </div>
