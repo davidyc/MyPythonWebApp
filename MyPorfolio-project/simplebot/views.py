@@ -14,7 +14,7 @@ def dialog(request):
     userform = WordForm()
     if request.method == "POST":  
         global name   
-        say = request.GET.get("word")      
+        say = request.POST.get("word")      
         told = dialoguser(name, say)
         dialogs.append(told)   
 
@@ -34,6 +34,7 @@ def _getresponse(text):
     request.session_id = 'SimpleBot'
     request.query = text
     responsejson = json.loads(request.getresponse().read().decode('utf-8'))
+    print(responsejson)
     response = responsejson['result']['fulfillment']['speech']
 
     if response:

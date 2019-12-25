@@ -44,12 +44,11 @@
         </div>
       {% endif%} 
   {% endfor%}  
+
   <center>
-  <div class="col-2">
+  <div class="col-4">
       <form class="form-signin" method="POST"  action="{% url 'dialog' %}">   
-          {% csrf_token %}  
-          <h1 class="h3 mb-3 font-weight-normal">Как тебя зовут?</h1>
-          <label class="sr-only">Имя: </label>
+          {% csrf_token %}                
           {{form}}          
           <br>  
           
