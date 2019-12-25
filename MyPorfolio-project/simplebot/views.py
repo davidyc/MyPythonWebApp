@@ -20,7 +20,7 @@ def dialog(request):
 
         answer = _getresponse(say)    
         told = dialoguser("Bender", answer)
-        dialogs.append(told)
+        dialogs.append(told)   
     else:
         dialogs.clear()
         name = request.GET.get("word")          
@@ -33,8 +33,7 @@ def _getresponse(text):
     request.lang = 'ru'
     request.session_id = 'SimpleBot'
     request.query = text
-    responsejson = json.loads(request.getresponse().read().decode('utf-8'))
-    print(responsejson)
+    responsejson = json.loads(request.getresponse().read().decode('utf-8'))   
     response = responsejson['result']['fulfillment']['speech']
 
     if response:
@@ -47,3 +46,15 @@ class dialoguser:
         self.name = name
         self.say = say
         self.time = datetime.datetime.now()    
+    
+    def __lt__(self, other):
+        if self.time < self.time:
+            return True
+        else: 
+            return False
+
+    def __lt__(self, other):
+        if self.time > self.time:
+            return True
+        else: 
+            return False

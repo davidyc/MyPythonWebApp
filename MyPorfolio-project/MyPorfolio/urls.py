@@ -32,7 +32,7 @@ urlpatterns = [
     path('jobs/evo/phases', evolution.views.phases, name='phases'),
     path('jobs/evo/addphases', evolution.views.addphases, name='addphases'),
     path('jobs/bot', simplebot.views.main, name='bot'),
-    path('jobs/dialog', simplebot.views.dialog, name='dialog'),
+    path('jobs/bot/dialog', simplebot.views.dialog, name='dialog'),
 ] 
 
 urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) 
