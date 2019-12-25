@@ -1,10 +1,17 @@
 from django.shortcuts import render
-import apiai, json
+import apiai, json, datetime
 
 # Create your views here.
 def main(request):   
-    print(_getresponse('Привет'))
     return render(request, 'bot/index.html')
+
+def dialog(request):   
+    answer = _getresponse('Ты скучный')
+    told = dialoguser("Bender", answer)
+    dialogs = list()
+    dialogs.append(told)
+    print(dialogs)
+    return render(request, 'bot/dialog.html', {'dialog': dialogs})
 
 
 def _getresponse(text):
@@ -18,4 +25,12 @@ def _getresponse(text):
     if response:
         return response
     else:
-        return "Я не понимаю"
+        return "Я не понимаю."
+
+class dialoguser:
+    def __init__(self, name, say):
+        self.name = name
+        self.say = say
+        self.time = datetime.datetime.now()
+    def __str__(self):
+        return "ssd"
