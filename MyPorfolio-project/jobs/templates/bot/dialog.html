@@ -27,20 +27,17 @@
   </head>
 
 <body class="text-center">
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  {%for dg in dialogs%}
+            <tr>              
+              <td>{{dg.name}}</td>   
+              <td>{{dg.say}}</td>     
+              <td>{{dg.time}}</td>                
+            </tr>
+  {% endfor%}  
+
+  {{dialogs}}
     
-<center>
-  <div class="col-2">
-      <form class="form-signin" action="{% url 'dialog' %}">   
-          {% csrf_token %}  
-          <h1 class="h3 mb-3 font-weight-normal">Как тебя зовут?</h1>
-          <label class="sr-only">Имя: </label>
-          <input class="form-control" placeholder="Введите имя" required autofocus>  
-          <br>  
-          <input type="submit" class="btn btn-success" value="Представиться">
-      </form>
-    </div>
-</center>
+
 </body>
 
 <script src="{% static 'jquery-3.4.1.min.js' %}"></script>
