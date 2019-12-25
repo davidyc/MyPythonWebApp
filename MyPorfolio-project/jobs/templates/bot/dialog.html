@@ -21,23 +21,29 @@
         }
       }
     </style>
-    <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet">
-
+ 
   </head>
 
 <body class="text-center">
-  {%for dg in dialogs%}
-            <tr>              
-              <td>{{dg.name}}</td>   
-              <td>{{dg.say}}</td>     
-              <td>{{dg.time}}</td>                
-            </tr>
+  {%for dg in dialog%}
+      {%if dg.name == 'Bender' %}
+        <div class="alert alert-primary" role="alert">
+                  <tr>              
+                    <td>{{dg.name}}</td>   
+                    <td>{{dg.say}}</td>     
+                    <td>{{dg.time}}</td>                
+                  </tr>              
+        </div>
+      {%else%}
+      <div class="alert alert-success" role="alert">
+                  <tr>              
+                    <td>{{dg.name}}</td>   
+                    <td>{{dg.say}}</td>     
+                    <td>{{dg.time}}</td>                
+                  </tr>              
+        </div>
+      {% endif%} 
   {% endfor%}  
-
-  {{dialogs}}
-    
-
 </body>
 
 <script src="{% static 'jquery-3.4.1.min.js' %}"></script>

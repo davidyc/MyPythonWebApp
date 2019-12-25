@@ -2,16 +2,16 @@ from django.shortcuts import render
 import apiai, json, datetime
 
 # Create your views here.
-def main(request):   
+def main(request):  
     return render(request, 'bot/index.html')
 
-def dialog(request):   
+def dialog(request):       
     answer = _getresponse('Ты скучный')
     told = dialoguser("Bender", answer)
     dialogs = list()
     dialogs.append(told)
-    print(dialogs)
-    return render(request, 'bot/dialog.html', {'dialog': dialogs})
+    
+    return render(request, 'bot/dialog.html', {'dialog': dialogs, "answer" : told })
 
 
 def _getresponse(text):
@@ -31,6 +31,4 @@ class dialoguser:
     def __init__(self, name, say):
         self.name = name
         self.say = say
-        self.time = datetime.datetime.now()
-    def __str__(self):
-        return "ssd"
+        self.time = datetime.datetime.now()    
