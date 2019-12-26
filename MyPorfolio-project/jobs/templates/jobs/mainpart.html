@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!doctype html>
 <html lang="en">
 {% load static %}
@@ -76,76 +75,11 @@
   </div>
 </header>
 
-<main role="main">
-  <section class="jumbotron text-center">
-  <div class="row">
-  {% for dev in devs.all %}   
-    <div class="col-md-4">
-          <h1>{{dev.name}}</h1>
-          <img src="{{dev.image.url}}" height=300> <img/>
-          <p><p> 
-        <a href="{% url 'devinfo' dev.id %}" class="btn btn-primary my-2">View</a>
-      </p>     
-    </div>  
-    {% endfor%}   
-  </div>    
-  </section>
+{% block content %}
+{% endblock  %} 
 
-  <div class="album py-5 bg-light">
-    <div class="container">
-      <div class="row">
-      {% for job in jobs.all %}   
 
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-          <a href="{% url 'detail' job.id %}">
-            <img class="card-img-top" src="{{job.image.url}}" height=300>
-            <div class="card-body">
-              <p class="card-text">{{job.summary}}</p>
-              <div class="d-flex justify-content-between align-items-center">             
-                <small class="text-muted">{{job.adddate}}</small>
-=======
-{% extends 'jobs/mainpart.html' %}
-
-{%block content%}
-      <main role="main">
-        <section class="jumbotron text-center">
-        <div class="row">
-        {% for dev in devs.all %}   
-          <div class="col-md-4">
-                <h1>{{dev.name}}</h1>
-                <img src="{{dev.image.url}}" height=300> <img/>
-                <p><p>          
-              <a href="{% url 'devinfo' dev.id %}" class="btn btn-primary my-2">View</a>
-            </p>     
-          </div>  
-          {% endfor%}   
-        </div>    
-        </section>
-
-        <div class="album py-5 bg-light">
-          <div class="container">
-            <div class="row">
-            {% for job in jobs.all %}   
-
-              <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                <a href="{% url 'detail' job.id %}">
-                  <img class="card-img-top" src="{{job.image.url}}" height=300>
-                  <div class="card-body">
-                    <p class="card-text">{{job.summary}}</p>
-                    <div class="d-flex justify-content-between align-items-center">             
-                      <small class="text-muted">{{job.adddate}}</small>
-                    </div>
-                  </div>
-                </div>
-                </a>
->>>>>>> development
-              </div>
-            {% endfor%}  
-            </div>
-          </div>
-        </div>
-      </main>
-
-{%endblock%}
+<script src="{% static 'jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</html>
