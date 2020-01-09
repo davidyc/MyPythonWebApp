@@ -18,6 +18,7 @@ from django.urls import path
 import jobs.views
 import evolution.views
 import simplebot.views
+import mymenu.views
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -33,6 +34,7 @@ urlpatterns = [
     path('jobs/evo/addphases', evolution.views.addphases, name='addphases'),
     path('jobs/bot', simplebot.views.main, name='bot'),
     path('jobs/bot/dialog', simplebot.views.dialog, name='dialog'),
+    path('jobs/mymenu', mymenu.views.main, name='mymenu'),
 ] 
 
 urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) 
