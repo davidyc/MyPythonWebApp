@@ -13,7 +13,8 @@ class Category(models.Model):
         return self.name
    
 class Dish(models.Model):
-    name = models.CharField(max_length=50)   
+    name = models.CharField(max_length=50)  
+    discription = models.CharField(max_length=1000, blank=True, null=True) 
     dishcategory = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):
