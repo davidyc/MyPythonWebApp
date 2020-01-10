@@ -35,6 +35,7 @@ urlpatterns = [
     path('jobs/bot', simplebot.views.main, name='bot'),
     path('jobs/bot/dialog', simplebot.views.dialog, name='dialog'),
     path('jobs/mymenu', mymenu.views.main, name='mymenu'),
+    path('jobs/mymenu/addprod', mymenu.views.addproduct, name='addproduct'),
 ] 
 
 urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) 
