@@ -14,11 +14,9 @@ urlpatterns = [
     path('jobs/<int:job_id>', jobs.views.details, name='detail'),
     path('devinfo/<int:dev_id>', jobs.views.devinfo, name='devinfo'),
     path('jobs/evo/', include('evolution.urls')),
-    path('jobs/bot', include('simplebot.urls')),
-    
-    path('jobs/mymenu', mymenu.views.main, name='mymenu'),
-    path('jobs/mymenu/addprod', mymenu.views.addproduct, name='addproduct'),
-    path('jobs/mymenu/login', mymenu.views.signup, name='login'),
+    path('jobs/bot/', include('simplebot.urls')),    
+    path('jobs/mymenu/', include('mymenu.urls')),
+   
 ] 
 
 urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) 
