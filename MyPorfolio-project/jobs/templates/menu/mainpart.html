@@ -23,7 +23,7 @@
 
   </head>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="{% url 'mymenu' %}">My Menu</a>
+    <a class="navbar-brand" href="{% url 'mymenu' %}">My Menu</a>  
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -33,6 +33,21 @@
         <li class="nav-item active">
           <a class="nav-link" href="{% url 'Home' %}">Home</a>
         </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'mymenu'%}">{{ user.get_username }}</a>  
+        </li>
+        <li class="nav-item active"> 
+          <a class="nav-link" href="{% url 'logoutmenu'%}?next={{request.path}}">Выйти</a>  
+        </li>
+        {% else %}
+        <li class="nav-item active"> 
+          <a class="nav-link" href="{% url 'loginmenu'%}?next={{request.path}}">Вход</a>
+        </li>
+        <li class="nav-item active"> 
+          <a class="nav-link" href="{% url 'menusingup'%}?next={{request.path}}">Регистрация</a>
+        </li>
+        {% endif %}  
       </ul>      
     </div>
   </nav>

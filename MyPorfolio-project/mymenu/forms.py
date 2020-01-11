@@ -6,3 +6,4 @@ class ProductForm(ModelForm):
     class Meta:
         model = Product
         fields = ['name']
+
