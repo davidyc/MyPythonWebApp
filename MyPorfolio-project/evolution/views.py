@@ -44,7 +44,7 @@ def addphases(request):
             _addnewphase(form)
                        
             # add page successful 
-            return phases(request)          
+            return redirect('phases')          
     else:
         form = PhaseForm()
     return render(request, 'evo/addphases.html', {'form': form})    
