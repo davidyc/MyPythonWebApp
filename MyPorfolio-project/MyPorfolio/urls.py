@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 import jobs.views
 import evolution.views
 import simplebot.views
@@ -28,10 +28,7 @@ urlpatterns = [
     path('', jobs.views.main, name ='Home'),
     path('jobs/<int:job_id>', jobs.views.details, name='detail'),
     path('devinfo/<int:dev_id>', jobs.views.devinfo, name='devinfo'),
-    path('jobs/evo', evolution.views.main, name='evo'),
-    path('jobs/evo/themes', evolution.views.themes, name='themes'),
-    path('jobs/evo/phases', evolution.views.phases, name='phases'),
-    path('jobs/evo/addphases', evolution.views.addphases, name='addphases'),
+    path('jobs/evo/', include('evolution.urls')),
     path('jobs/bot', simplebot.views.main, name='bot'),
     path('jobs/bot/dialog', simplebot.views.dialog, name='dialog'),
     path('jobs/mymenu', mymenu.views.main, name='mymenu'),
