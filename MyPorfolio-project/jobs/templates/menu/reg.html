@@ -29,7 +29,7 @@
               <div class="col-md-5 col-sm-8">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                  <input type="password" class="form-control" name="password1" id="id_password1" placeholder="Choose password (5-15 chars)" value="{{form.password1.value}}">
+                  <input type="password" class="form-control" name="password1" id="id_password1" placeholder="Введите пароль (5-15 символов)" value="{{form.password1.value}}">
               </div>   
               <small> {% for error in form.password2.errors %}
                 <p class="text-danger">{{ error }}</p>
@@ -42,7 +42,7 @@
               <div class="col-md-5 col-sm-8">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                  <input type="password" class="form-control" name="password2" id="id_password2" placeholder="Confirm your password" value="{form.password2.value}}">
+                  <input type="password" class="form-control" name="password2" id="id_password2" placeholder="Повторите пароль" value="{form.password2.value}}">
                 </div>  
                 <small> {% for error in form.password2.errors %}
                   <p class="text-danger">{{ error }}</p>
