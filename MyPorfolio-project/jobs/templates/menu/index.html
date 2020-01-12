@@ -1,6 +1,25 @@
 {% extends 'menu/mainpart.html' %}
 
 {% block content %} 
-    <h1>Тут вставить только боди</h1>
+<br><br><br>
+{% for week in allWeek %}   
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src=".../100px180/?text=Image cap" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{week.week}}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          {% for dish in week.dishes %} 
+            <li class="list-group-item">{{dish.dish}}</li>
+          {% endfor %}           
+        </ul>
+        <div class="card-body">
+          <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a>
+        </div>
+      </div>
+      
+{% endfor %} 
+    
 {% endblock  %}
 

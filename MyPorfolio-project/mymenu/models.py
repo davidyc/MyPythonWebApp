@@ -42,3 +42,12 @@ class ListDishesWeek(models.Model):
 
     def __str__(self):
         return "Блюдо {} для {} ".format(self.dish, self.week)
+
+
+class _weekDish():
+    def __init__(self, week):
+        self.week = week
+        self.dishes = list()
+    
+    def __str__(self):
+        return self.week
