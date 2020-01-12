@@ -1,22 +1,64 @@
 {% extends 'menu/mainpart.html' %}
 
 {% block content %} 
-<br><br><br><br><br>
-<form method="post" action="{% url 'menusingup' %}">
-    {% csrf_token %}
-    {% for field in form %}
-    <p>
-      {{ field.label_tag }}<br>
-      {{ field }}
-      {% if field.help_text %}
-      <span>{{ field.help_text }}</span>
-      {% endif %}
-      {% for error in field.errors %}
-      <p>{{ error }}</p>
-      {% endfor %}
-    </p>
-    {% endfor %}
-    <button type="submit">Отправить</button>
-    </form>
+<br><br><br><br><br>   
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <section>      
+            <h1 class="entry-title"><span>Регистрация</span> </h1>
+            <hr>
+              <form method="post" action="{% url 'menusingup' %}" class="form-horizontal" method="post" name="signup" id="signup" enctype="multipart/form-data" >        
+              {% csrf_token %}
+              <div class="form-group">
+              <label class="control-label col-sm-3">Логин<span class="text-danger">*</span></label>
+              <div class="col-md-8 col-sm-9">
+                  <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                  <input type="input" class="form-control" name="username" id="id_username" placeholder="Введите ваш логин" value="{{form.username.value}}">
+                </div>
+                <small> {% for error in form.username.errors %}
+                  <p class="text-danger">{{ error }}</p>
+                  {% endfor %} 
+                </small> 
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="control-label col-sm-3">Пароль<span class="text-danger">*</span></label>
+              <div class="col-md-5 col-sm-8">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                  <input type="password" class="form-control" name="password1" id="id_password1" placeholder="Choose password (5-15 chars)" value="{{form.password1.value}}">
+              </div>   
+              <small> {% for error in form.password2.errors %}
+                <p class="text-danger">{{ error }}</p>
+                {% endfor %} 
+              </small> 
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-3">Повторите пароль <span class="text-danger">*</span></label>
+              <div class="col-md-5 col-sm-8">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                  <input type="password" class="form-control" name="password2" id="id_password2" placeholder="Confirm your password" value="{form.password2.value}}">
+                </div>  
+                <small> {% for error in form.password2.errors %}
+                  <p class="text-danger">{{ error }}</p>
+                  {% endfor %} 
+                </small> 
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-xs-offset-3 col-xs-10">
+                <input name="Submit" type="submit" value="Регистрация" class="btn btn-primary">
+              </div>
+            </div>
+            
+          </form>
+        </div>
+      </div>
+    </div>
 {% endblock  %}
 
