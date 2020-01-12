@@ -26,7 +26,7 @@ class Ingredient(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{} для {}".format(self.dish, self.product)
+        return "{} для {}".format(self.product, self.dish)
 
 
 class Week(models.Model):
