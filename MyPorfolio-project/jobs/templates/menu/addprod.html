@@ -1,0 +1,15 @@
+{% extends 'menu/mainpart.html' %}
+
+{% block content %} 
+<br>    
+<br>
+<br>    
+<form action="{% url 'addproduct' %}" method="post">
+    <h3>Добавить продукт</h3>          
+    {% csrf_token %}  
+    {{ form.name}}
+    <br>         
+    <input type="submit" class="btn btn-success" value="Добавить">
+</form>
+{% endblock  %}
+

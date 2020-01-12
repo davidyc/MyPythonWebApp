@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'jobs',
     'evolution',
     'simplebot',
+    'mymenu',
 ]
 
 MIDDLEWARE = [
