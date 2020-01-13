@@ -4,12 +4,14 @@
 <br>    
 <br>
 <br>    
-<form action="{% url 'addproduct' %}" method="post">
-    <h3>Добавить продукт</h3>          
-    {% csrf_token %}  
-    {{ form.name}}
-    <br>         
-    <input type="submit" class="btn btn-success" value="Добавить">
-</form>
+
+<form class="form-inline" action="{% url 'addproduct' %}" method="post">
+    {% csrf_token %} 
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="input1" class="sr-only">Password</label>
+      <input type="text" name="name" class="form-control" id="input1" placeholder="Продукт">
+    </div>
+    <input type="submit" class="btn btn-success mb-2" value="Добавить">
+  </form>
 {% endblock  %}
 

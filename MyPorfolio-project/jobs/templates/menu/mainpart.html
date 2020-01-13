@@ -20,18 +20,19 @@
         }
       }
     </style>  
-
   </head>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="{% url 'mymenu' %}">My Menu</a>  
+    <a class="navbar-brand" href="{% url 'mymenu' %}">Моё меню</a>  
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
-  
+    </button>  
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="nav-link" href="{% url 'Home' %}">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'allproduct' %}">Продукты</a>
         </li>
         {% if user.is_authenticated %}
         <li class="nav-item active">

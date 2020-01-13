@@ -25,16 +25,6 @@ def main(request):
     except:
         return redirect('loginmenu')
 
-def addproduct(request):
-    if request.method == 'POST':          
-        form = ProductForm(request.POST)      
-        if form.is_valid():  
-            form.save()
-            return HttpResponse("Done")     
-    else:
-        form = ProductForm()
-    return render(request, 'menu/addprod.html', {'form': form})    
-
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)        
@@ -59,7 +49,6 @@ def loginmenu(request):
                 else:                    
                     return render(request, 'menu/log.html', {'form': form, 'error': error})  
             else:
-                print('DDD')
                 return render(request, 'menu/log.html', {'form': form, 'error': error})                      
     else:
         form = AuthenticationForm()
@@ -68,3 +57,18 @@ def loginmenu(request):
 def logoutmenu(request):
     logout(request)
     return redirect('mymenu')
+
+def showproduct(request):
+    allprod = Product.objects.all()
+    return render(request, 'menu/allprod.html', {'allprod': allprod})         
+
+@login_required(login_url='loginmenu')
+def addproduct(request):
+    if request.method == 'POST':          
+        form = ProductForm(request.POST)    
+        if form.is_valid():  
+            form.save()
+            return redirect('allproduct') 
+    else:
+        form = ProductForm()
+    return render(request, 'menu/addprod.html', {'form': form})    
