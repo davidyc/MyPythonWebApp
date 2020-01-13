@@ -4,10 +4,24 @@ from .forms import ProductForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
-
+from .models import Product, Category, Dish, Ingredient, Week, ListDishesWeek, _weekDish, _dish
 
 def main(request):
-    return render(request, 'menu/index.html')
+    listweek = Week.objects.filter(user_id = request.user)
+    allWeek = list()      
+    for i in listweek:
+        tmp = _weekDish(i)          
+        allDishes = ListDishesWeek.objects.filter(week=i)          
+        for ii in allDishes:
+            print(ii) 
+            print(type(ii))
+            allIngredients = Ingredient.objects.filter(dish=ii.dish)
+            _dishtmp = _dish(ii)
+            for ing in allIngredients:
+                _dishtmp.ingredients.append(ing)
+            tmp.dishes.append(_dishtmp)  
+        allWeek.append(tmp) 
+    return render(request, 'menu/index.html', {'allWeek': allWeek})
 
 def addproduct(request):
     if request.method == 'POST':          
@@ -40,13 +54,11 @@ def loginmenu(request):
                 if user.is_active:
                     login(request, user)
                     return redirect('mymenu')
-                else:
-                    
+                else:                    
                     return render(request, 'menu/log.html', {'form': form, 'error': error})  
             else:
                 print('DDD')
-                return render(request, 'menu/log.html', {'form': form, 'error': error})  
-                    
+                return render(request, 'menu/log.html', {'form': form, 'error': error})                      
     else:
         form = AuthenticationForm()
         return render(request, 'menu/log.html', {'form': form})  

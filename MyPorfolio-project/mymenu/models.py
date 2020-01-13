@@ -26,7 +26,7 @@ class Ingredient(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{} для {}".format(self.dish, self.product)
+        return "{} для {}".format(self.product, self.dish)
 
 
 class Week(models.Model):
@@ -42,3 +42,17 @@ class ListDishesWeek(models.Model):
 
     def __str__(self):
         return "Блюдо {} для {} ".format(self.dish, self.week)
+
+
+class _weekDish():
+    def __init__(self, week):
+        self.week = week
+        self.dishes = list()
+
+class _dish():
+    def __init__(self, name):
+        self.name = name
+        self.ingredients = list()
+
+    def __str__(self):
+        return self.week
