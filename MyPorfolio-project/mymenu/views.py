@@ -73,13 +73,25 @@ def addproduct(request):
         form = ProductForm()
     return render(request, 'menu/addprod.html', {'form': form})    
 
+def showdish(request):
+    alldishes = Dish.objects.all()
+    enddish = list()
+    for i in alldishes:                
+        allIngredients = Ingredient.objects.filter(dish=i)
+        _dishtmp = _dish(i)
+        for ing in allIngredients:
+            _dishtmp.ingredients.append(ing)
+        enddish.append(_dishtmp) 
+    return render(request, 'menu/alldish.html', {'enddish': enddish})         
+
+
+
 #api part 
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import serializers
 from .serializers import ProductSerializer
-
 
 class ProductView(APIView):
     def get(self, request):

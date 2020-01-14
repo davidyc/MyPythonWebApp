@@ -34,6 +34,9 @@
         <li class="nav-item active">
           <a class="nav-link" href="{% url 'allproduct' %}">Продукты</a>
         </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'alldish' %}">Блюда</a>
+        </li>
         {% if user.is_authenticated %}
         <li class="nav-item active">
           <a class="nav-link" href="{% url 'mymenu'%}">{{ user.get_username }}</a>  

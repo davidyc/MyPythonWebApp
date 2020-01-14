@@ -55,4 +55,4 @@ class _dish():
         self.ingredients = list()
 
     def __str__(self):
-        return self.week
+        return self.name
