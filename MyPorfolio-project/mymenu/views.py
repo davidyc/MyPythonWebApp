@@ -72,3 +72,40 @@ def addproduct(request):
     else:
         form = ProductForm()
     return render(request, 'menu/addprod.html', {'form': form})    
+
+#api part 
+from rest_framework.generics import get_object_or_404
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import serializers
+from .serializers import ProductSerializer
+
+
+class ProductView(APIView):
+    def get(self, request):
+        products = Product.objects.all()
+        serializer = ProductSerializer(products, many=True)
+        return Response({"Products": serializer.data})
+    
+    def post(self, request):
+        product = request.data.get('product')
+        print(request)
+        serializer = ProductSerializer(data=product)
+        if serializer.is_valid(raise_exception=True):
+            prod_saved = serializer.save()
+        return Response({"success": "Product '{}' created successfully".format(prod_saved.name)})
+
+    def put(self, request, pk):
+        saved_product = get_object_or_404(Product.objects.all(), pk=pk)
+        data = request.data.get('product')
+        serializer = ProductSerializer(instance=saved_product, data=data, partial=True)
+        print(serializer)
+        print(saved_product)
+        if serializer.is_valid(raise_exception=True):
+            saved_product = serializer.save()
+            return Response({"success": "Product '{}' updated successfully".format(saved_product.name)})
+
+    def delete(self, request, pk):
+        product = get_object_or_404(Product.objects.all(), pk=pk)
+        product.delete()
+        return Response({"message": "Product with id `{}` has been deleted.".format(pk)}, status=204)
