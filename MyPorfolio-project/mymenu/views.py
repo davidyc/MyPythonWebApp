@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound
-from .forms import ProductForm
+from .forms import ProductForm, DishForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
@@ -82,9 +82,27 @@ def showdish(request):
         for ing in allIngredients:
             _dishtmp.ingredients.append(ing)
         enddish.append(_dishtmp) 
-    return render(request, 'menu/alldish.html', {'enddish': enddish})         
+    return render(request, 'menu/alldish.html', {'enddish': enddish})
 
+def adddish(request):
+    nameerror = ''
+    dishcaterror = ''
+    if request.method == 'POST':
+        form = DishForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('alldish')
+        else:
+            nameerror = 'Это поле обязательно'
+            dishcaterror = 'Выберите категорию'
+    else:
+        form = DishForm()
+        print(form)
+    return render(request, 'menu/adddish.html', {'form': form, 'nameerror':nameerror, 'dishcaterror':dishcaterror })
 
+def adding(request):
+    form = DishForm()
+    return render(request, 'menu/adding.html', {'form': form})
 
 #api part 
 from rest_framework.generics import get_object_or_404

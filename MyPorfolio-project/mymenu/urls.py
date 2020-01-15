@@ -10,6 +10,8 @@ urlpatterns = [
     path('allproduct', mymenu.views.showproduct, name='allproduct'),
     path('addprod', mymenu.views.addproduct, name='addproduct'),
     path('alldish', mymenu.views.showdish, name='alldish'),
+    path('adddish', mymenu.views.adddish, name='adddish'),
+    path('adding', mymenu.views.adding, name='adding'),
 
     #apipart
     path('api/allproduct', mymenu.views.ProductView.as_view()),

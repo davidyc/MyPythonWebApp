@@ -7,3 +7,7 @@ class ProductForm(ModelForm):
         model = Product
         fields = ['name']
 
+class DishForm(ModelForm):
+    class Meta:
+        model = Dish
+        fields = ['name', 'discription', 'dishcategory']
