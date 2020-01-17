@@ -13,7 +13,7 @@ urlpatterns = [
     path('adddish', mymenu.views.adddish, name='adddish'),
     path('dish/<int:dish_id>', mymenu.views.dishinfo, name='dishinfo'),
     path('deleteing/<int:ing_id>', mymenu.views.deleteing, name='deleteing'),
-    path('adding/<int:ing_id>', mymenu.views.adding, name='adding'),
+    path('adding/<int:dish_id>', mymenu.views.adding, name='adding'),
 
     #apipart
     path('api/allproduct', mymenu.views.ProductView.as_view()),

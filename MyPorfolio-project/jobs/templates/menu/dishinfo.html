@@ -30,12 +30,13 @@
                 <input type="hidden" name="dish" value="{{dish_detail.name.id}}">
                 <div class="row">
                     <div class="col-md-7">
-                        <select class="form-control" id="id_dishcategory" name="dishcategory">
+                        <select class="form-control" id="id_dishcategory" name="product">
                             {%for dc in form.product%}
                                 <option>{{dc}}</option>x
                             {% endfor %}
                         </select>
                     </div>
+                    <p class="text-danger">{{form.errors}}</p>
                     <div class="col-md-3">
                        <button type="submit" class="btn btn-success">Добавить</button>
                     </div>

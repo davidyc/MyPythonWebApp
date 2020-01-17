@@ -113,17 +113,15 @@ def dishinfo(request, dish_id):
 def deleteing(request, ing_id):
     ing_detail = get_object_or_404(Ingredient, pk=ing_id)
     ing_detail.delete()
-    return redirect('mymenu')
+    return dishinfo(request, ing_detail.dish.id)
 
 @login_required(login_url='loginmenu')
-def adding(request, ing_id):
+def adding(request, dish_id):
     form = IngForm(request.POST)
     if form.is_valid():
         form.save()
-        return redirect('mymenu')
-    else:
-        pass
-    return redirect('mymenu')
+        return dishinfo(request, dish_id)
+    return dishinfo(request, dish_id)
 
 
 
