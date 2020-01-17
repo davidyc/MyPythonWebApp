@@ -18,6 +18,7 @@ urlpatterns = [
     #apipart
     path('api/allproduct', mymenu.views.ProductView.as_view()),
     path('api/allproduct/<int:pk>', mymenu.views.ProductView.as_view()),
+    path('api/alldish', mymenu.views.DishView.as_view()),
 
  
     

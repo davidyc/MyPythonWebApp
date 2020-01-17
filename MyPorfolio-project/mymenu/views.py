@@ -130,7 +130,7 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import serializers
-from .serializers import ProductSerializer
+from .serializers import ProductSerializer, DishSerializer
 
 class ProductView(APIView):
     def get(self, request):
@@ -160,3 +160,10 @@ class ProductView(APIView):
         product = get_object_or_404(Product.objects.all(), pk=pk)
         product.delete()
         return Response({"message": "Product with id `{}` has been deleted.".format(pk)}, status=204)
+
+
+class DishView(APIView):
+    def get(self, request):
+        dishes = Dish.objects.all()
+        serializer = DishSerializer(dishes, many=True)
+        return Response({"Dish": serializer.data})
