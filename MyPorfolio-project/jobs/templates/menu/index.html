@@ -13,7 +13,7 @@
 </div> 
 <div class="row">
       {% for dish in week.dishes %} 
-        <div class="col-md-2">
+        <div class="col-md-3">
           <div class="card" style="width: 18rem;">
               <img class="card-img-top" src="https://is2-ssl.mzstatic.com/image/thumb/Purple4/v4/ab/80/50/ab8050d9-d0f6-51d7-8c5e-122f4634ee27/source/512x512bb.jpg" alt="Card image cap">
               <div class="card-body">
@@ -24,9 +24,6 @@
                   <li class="list-group-item">{{ing.product}}</li>
                 {% endfor %}           
               </ul>
-              <div class="card-body">
-                <a href="#" class="card-link">Открыть меню</a>
-              </div>
           </div>
         </div>
         {% endfor %}       

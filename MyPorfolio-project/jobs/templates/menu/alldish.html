@@ -1,0 +1,37 @@
+{% extends 'menu/mainpart.html' %}
+
+{% block content %}
+<br><br><br>
+<div class="price-table text-center" style="background-color: rgb(255, 255, 255); border-radius: 0px; border-width: 7px; border-style: solid; border-color: rgb(238, 238, 238); transition: all 0.3s ease; color: rgb(255, 255, 255); font-family: Lato, sans-serif; font-size: 16px;">
+	<div class="price-table-heading" style="color: rgb(51, 51, 51); background-image: initial; background-color: rgb(249, 249, 249); padding-top: 2px; padding-bottom: 2px; margin-bottom: 0px;">
+		<p style="margin-bottom: 10px; font-size: 30px; line-height: 1.3;">
+        Список блюд
+		</p>
+    </div>
+    <div class="card-body">
+        <a href="{% url 'adddish' %}" class="card-link"><button type="button" class="btn btn-outline-dark">Добавить</button></a>
+    </div>
+</div>
+    <div class="row">
+        {%for pd in enddish%}
+        <div class="col-md-3">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="https://is2-ssl.mzstatic.com/image/thumb/Purple4/v4/ab/80/50/ab8050d9-d0f6-51d7-8c5e-122f4634ee27/source/512x512bb.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{pd.name}}</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for ing in pd.ingredients %}
+
+                        <li class="list-group-item">{{ing.product}}</li>
+                </ul>
+                {% endfor %}
+                 <div class="card-body">
+                       <a href="{% url 'dishinfo' pd.name.id %}" class="card-link"><button type="button" class="btn btn-outline-dark">Посмотреть</button></a>
+                 </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock  %}
+
