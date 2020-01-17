@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound
-from .forms import ProductForm, DishForm
+from .forms import ProductForm, DishForm, IngForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
@@ -84,6 +84,7 @@ def showdish(request):
         enddish.append(_dishtmp) 
     return render(request, 'menu/alldish.html', {'enddish': enddish})
 
+@login_required(login_url='loginmenu')
 def adddish(request):
     nameerror = ''
     dishcaterror = ''
@@ -100,9 +101,31 @@ def adddish(request):
         print(form)
     return render(request, 'menu/adddish.html', {'form': form, 'nameerror':nameerror, 'dishcaterror':dishcaterror })
 
-def adding(request):
-    form = DishForm()
-    return render(request, 'menu/adding.html', {'form': form})
+def dishinfo(request, dish_id):
+    dish_detail = get_object_or_404(Dish, pk=dish_id)
+    dishing = Ingredient.objects.filter(dish=dish_detail)
+    _dishtmp = _dish(dish_detail)
+    _dishtmp.ingredients = dishing
+    form = IngForm()
+    return render(request, 'menu/dishinfo.html', {"dish_detail" : _dishtmp, 'form':form})
+
+@login_required(login_url='loginmenu')
+def deleteing(request, ing_id):
+    ing_detail = get_object_or_404(Ingredient, pk=ing_id)
+    ing_detail.delete()
+    return redirect('mymenu')
+
+@login_required(login_url='loginmenu')
+def adding(request, ing_id):
+    form = IngForm(request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect('mymenu')
+    else:
+        pass
+    return redirect('mymenu')
+
+
 
 #api part 
 from rest_framework.generics import get_object_or_404

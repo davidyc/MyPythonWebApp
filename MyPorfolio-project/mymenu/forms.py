@@ -11,3 +11,8 @@ class DishForm(ModelForm):
     class Meta:
         model = Dish
         fields = ['name', 'discription', 'dishcategory']
+
+class IngForm(ModelForm):
+    class Meta:
+        model = Ingredient
+        fields = ['product', 'dish']

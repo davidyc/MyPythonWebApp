@@ -1,9 +1,6 @@
 {% extends 'menu/mainpart.html' %}
 
-{% block content %} 
-
-
-
+{% block content %}
 <br><br><br>
 <div class="price-table text-center" style="background-color: rgb(255, 255, 255); border-radius: 0px; border-width: 7px; border-style: solid; border-color: rgb(238, 238, 238); transition: all 0.3s ease; color: rgb(255, 255, 255); font-family: Lato, sans-serif; font-size: 16px;">
 	<div class="price-table-heading" style="color: rgb(51, 51, 51); background-image: initial; background-color: rgb(249, 249, 249); padding-top: 2px; padding-bottom: 2px; margin-bottom: 0px;">
@@ -25,12 +22,13 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     {% for ing in pd.ingredients %}
+
                         <li class="list-group-item">{{ing.product}}</li>
-                    {% endfor %}
                 </ul>
-                    <div class="card-body">
-                       <a href="#" class="card-link"><button type="button" class="btn btn-outline-dark">Посмотреть</button></a>
-                    </div>
+                {% endfor %}
+                 <div class="card-body">
+                       <a href="{% url 'dishinfo' pd.name.id %}" class="card-link"><button type="button" class="btn btn-outline-dark">Посмотреть</button></a>
+                 </div>
             </div>
         </div>
         {% endfor %}

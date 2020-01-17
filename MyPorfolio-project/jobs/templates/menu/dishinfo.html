@@ -1,0 +1,53 @@
+{% extends 'menu/mainpart.html' %}
+
+{% block content %} 
+<br><br><br>
+
+<div class="row">
+  <div class="col-md-4"> </div>
+  <div class="col-md-8">
+    <div class="card" style="width: 18rem;">
+      <div class="card-header">
+        {{ dish_detail.name }}
+      </div>
+      <ul class="list-group list-group-flush">
+        {%for dc in dish_detail.ingredients%}
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-md-7">{{dc.product.name}} </div>
+                <div class="col-md-3">
+                    <form action="{% url 'deleteing' dc.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+        <li class="list-group-item">
+            <form action="{% url 'adding' dish_detail.name.id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="dish" value="{{dish_detail.name.id}}">
+                <div class="row">
+                    <div class="col-md-7">
+                        <select class="form-control" id="id_dishcategory" name="dishcategory">
+                            {%for dc in form.product%}
+                                <option>{{dc}}</option>x
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                       <button type="submit" class="btn btn-success">Добавить</button>
+                    </div>
+                </div>
+            </form>
+
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+    {% endblock  %}
+
+
