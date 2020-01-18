@@ -123,6 +123,9 @@ def adding(request, dish_id):
         return dishinfo(request, dish_id)
     return dishinfo(request, dish_id)
 
+def createweek(request):
+    form = None
+    return render(request, 'menu/createweek.html', {'form': form})
 
 
 #api part 

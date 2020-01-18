@@ -14,6 +14,7 @@ urlpatterns = [
     path('dish/<int:dish_id>', mymenu.views.dishinfo, name='dishinfo'),
     path('deleteing/<int:ing_id>', mymenu.views.deleteing, name='deleteing'),
     path('adding/<int:dish_id>', mymenu.views.adding, name='adding'),
+    path('createweek', mymenu.views.createweek, name='createweek'),
 
     #apipart
     path('api/allproduct', mymenu.views.ProductView.as_view()),
