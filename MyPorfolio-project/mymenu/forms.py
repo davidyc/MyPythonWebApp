@@ -27,3 +27,4 @@ class CreateWeekForm(forms.Form):
     day5 = forms.IntegerField()
     day6 = forms.IntegerField()
     day7 = forms.IntegerField()
+    name = forms.CharField(max_length=20)

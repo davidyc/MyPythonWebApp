@@ -5,6 +5,10 @@
 <p class="text-danger">{{error}}</p>
  <form action="{% url 'createweek' %}" method="post">
    {% csrf_token %}
+   <div class="form-group col-md-4">
+    <label for="formGroupExampleInput">Название</label>
+    <input type="text" class="form-control" name="name" id="formGroupExampleInput" placeholder="Название недели">
+  </div>
     <div class="form-group col-md-4">
       <label for="inputState">День 1</label>
        <select id="inputState" name="day1" class="form-control">

@@ -128,7 +128,7 @@ def createweek(request):
         form = CreateWeekForm(request.POST)
         if form.is_valid():
             days = _getcategorybyday(form)
-            _createweek(days, request)
+            _createweek(days, request, form['name'].value())
             return redirect('mymenu')
         else:
             categories = Category.objects.all()
@@ -152,10 +152,10 @@ def _getcategorybyday(form):
     days.append(form['day7'].value())
     return days
 
-def _createweek(days, request):
+def _createweek(days, request, name):
     week = Week()
     week.user = request.user
-    week.name = "Тест"
+    week.name = name
     week.save()
     for day in days:
         dishs = Dish.objects.filter(dishcategory = day)
