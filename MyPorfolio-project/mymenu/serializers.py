@@ -14,4 +14,14 @@ class ProductSerializer(serializers.Serializer):
         instance.save()
         return instance
 
-   
+
+class DishSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    name = serializers.CharField(max_length=50)
+    discription = serializers.CharField()
+    dishcategory = serializers.StringRelatedField()
+
+    class Meta:
+        model = Category
+        fields = ['id', 'name']
+

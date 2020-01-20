@@ -3,7 +3,6 @@ import mymenu.views
 
 urlpatterns = [    
     path('', mymenu.views.main, name='mymenu'),
-    
     path('singup', mymenu.views.signup, name='menusingup'),
     path(r'loginmenu', mymenu.views.loginmenu, name='loginmenu'),
     path('logoutmenu', mymenu.views.logoutmenu, name='logoutmenu'),    
@@ -14,10 +13,12 @@ urlpatterns = [
     path('dish/<int:dish_id>', mymenu.views.dishinfo, name='dishinfo'),
     path('deleteing/<int:ing_id>', mymenu.views.deleteing, name='deleteing'),
     path('adding/<int:dish_id>', mymenu.views.adding, name='adding'),
+    path('createweek', mymenu.views.createweek, name='createweek'),
 
     #apipart
     path('api/allproduct', mymenu.views.ProductView.as_view()),
     path('api/allproduct/<int:pk>', mymenu.views.ProductView.as_view()),
+    path('api/alldish', mymenu.views.DishView.as_view()),
 
  
     

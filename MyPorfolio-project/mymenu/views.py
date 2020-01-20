@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound
-from .forms import ProductForm, DishForm, IngForm
+from .forms import ProductForm, DishForm, IngForm, CreateWeekForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from .models import Product, Category, Dish, Ingredient, Week, ListDishesWeek, _weekDish, _dish
 from django.contrib.auth.models import AnonymousUser
+from random import randrange
 
 def main(request):
     try:  
@@ -98,7 +99,6 @@ def adddish(request):
             dishcaterror = 'Выберите категорию'
     else:
         form = DishForm()
-        print(form)
     return render(request, 'menu/adddish.html', {'form': form, 'nameerror':nameerror, 'dishcaterror':dishcaterror })
 
 def dishinfo(request, dish_id):
@@ -123,6 +123,55 @@ def adding(request, dish_id):
         return dishinfo(request, dish_id)
     return dishinfo(request, dish_id)
 
+def createweek(request):
+    if request.method == 'POST':
+        form = CreateWeekForm(request.POST)
+        if form.is_valid():
+            days = _getcategorybyday(form)
+            _createweek(days, request, form['name'].value())
+            return redirect('mymenu')
+        else:
+            categories = Category.objects.all()
+            return render(request, 'menu/createweek.html', {'categories': categories, 'error': "Нужно заполнить все поля"})
+    else:
+        categories = Category.objects.all()
+        return render(request, 'menu/createweek.html', {'categories':categories, 'error':''})
+
+
+
+
+
+def _getcategorybyday(form):
+    days = list()
+    days.append(form['day1'].value())
+    days.append(form['day2'].value())
+    days.append(form['day3'].value())
+    days.append(form['day4'].value())
+    days.append(form['day5'].value())
+    days.append(form['day6'].value())
+    days.append(form['day7'].value())
+    return days
+
+def _createweek(days, request, name):
+    week = Week()
+    week.user = request.user
+    week.name = name
+    week.save()
+    for day in days:
+        dishs = Dish.objects.filter(dishcategory = day)
+        dishes = list()
+        for i in dishs:
+            dishes.append(i.id)
+        catrange = len(dishes)
+        listdish = ListDishesWeek()
+        listdish.week = week
+        query = Dish.objects.filter(id = dishes[randrange(catrange)])
+        listdish.dish = query[0]
+        listdish.save()
+
+
+
+
 
 
 #api part 
@@ -130,7 +179,7 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import serializers
-from .serializers import ProductSerializer
+from .serializers import ProductSerializer, DishSerializer
 
 class ProductView(APIView):
     def get(self, request):
@@ -160,3 +209,10 @@ class ProductView(APIView):
         product = get_object_or_404(Product.objects.all(), pk=pk)
         product.delete()
         return Response({"message": "Product with id `{}` has been deleted.".format(pk)}, status=204)
+
+
+class DishView(APIView):
+    def get(self, request):
+        dishes = Dish.objects.all()
+        serializer = DishSerializer(dishes, many=True)
+        return Response({"Dish": serializer.data})
