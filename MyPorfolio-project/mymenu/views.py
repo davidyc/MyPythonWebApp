@@ -1,12 +1,17 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseNotFound
+import operator
+
+from random import randrange
+
 from .forms import ProductForm, DishForm, IngForm, CreateWeekForm
+from .models import Product, Category, Dish, Ingredient, Week, ListDishesWeek, _weekDish, _dish
+
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
-from .models import Product, Category, Dish, Ingredient, Week, ListDishesWeek, _weekDish, _dish
 from django.contrib.auth.models import AnonymousUser
-from random import randrange
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseNotFound
+
 
 def main(request):
     try:  
@@ -59,9 +64,11 @@ def logoutmenu(request):
     logout(request)
     return redirect('mymenu')
 
+
 def showproduct(request):
     allprod = Product.objects.all()
-    return render(request, 'menu/allprod.html', {'allprod': allprod})         
+    sortallprod = sorted(allprod, key=operator.attrgetter('name'))
+    return render(request, 'menu/allprod.html', {'allprod': sortallprod})         
 
 @login_required(login_url='loginmenu')
 def addproduct(request):
@@ -131,7 +138,7 @@ def createweek(request):
             _createweek(days, request, form['name'].value())
             return redirect('mymenu')
         else:
-            categories = Category.objects.all()
+            categories = Category.objects.all()            
             return render(request, 'menu/createweek.html', {'categories': categories, 'error': "Нужно заполнить все поля"})
     else:
         categories = Category.objects.all()
