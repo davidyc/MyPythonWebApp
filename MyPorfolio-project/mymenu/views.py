@@ -26,8 +26,10 @@ def main(request):
                 for ing in allIngredients:
                     _dishtmp.ingredients.append(ing)
                 tmp.dishes.append(_dishtmp)  
-            allWeek.append(tmp) 
-        return render(request, 'menu/index.html', {'allWeek': allWeek})
+            allWeek.append(tmp)
+        if len(allWeek)>0:
+            return render(request, 'menu/index.html', {'week': allWeek[-1]})
+        return render(request, 'menu/index.html', {'week': None})
     except:
         return redirect('loginmenu')
 
