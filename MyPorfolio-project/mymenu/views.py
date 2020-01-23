@@ -1,30 +1,28 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseNotFound
+import operator
+
+from random import randrange
+
 from .forms import ProductForm, DishForm, IngForm, CreateWeekForm
+from .models import Product, Category, Dish, Ingredient, Week, ListDishesWeek, _weekDish, _dish
+
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
-from .models import Product, Category, Dish, Ingredient, Week, ListDishesWeek, _weekDish, _dish
 from django.contrib.auth.models import AnonymousUser
-from random import randrange
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseNotFound
+
 
 def main(request):
     try:  
         listweek = Week.objects.filter(user_id = request.user)
-        allWeek = list()      
-        for i in listweek:
-            tmp = _weekDish(i)          
-            allDishes = ListDishesWeek.objects.filter(week=i)          
-            for ii in allDishes:                
-                allIngredients = Ingredient.objects.filter(dish=ii.dish)
-                _dishtmp = _dish(ii)
-                for ing in allIngredients:
-                    _dishtmp.ingredients.append(ing)
-                tmp.dishes.append(_dishtmp)  
-            allWeek.append(tmp) 
-        return render(request, 'menu/index.html', {'allWeek': allWeek})
+        allWeek = _getallweek(listweek)   
+        allIng = _getalling(listweek)             
+        if len(allWeek) > 0:
+            return render(request, 'menu/index.html', {'week': allWeek[-1], 'ings': allIng})
+        return render(request, 'menu/index.html', {'week': None, 'ings' : None})
     except:
-        return redirect('loginmenu')
+       return redirect('loginmenu')
 
 def signup(request):
     if request.method == 'POST':
@@ -59,9 +57,11 @@ def logoutmenu(request):
     logout(request)
     return redirect('mymenu')
 
+
 def showproduct(request):
     allprod = Product.objects.all()
-    return render(request, 'menu/allprod.html', {'allprod': allprod})         
+    sortallprod = sorted(allprod, key=operator.attrgetter('name'))
+    return render(request, 'menu/allprod.html', {'allprod': sortallprod})         
 
 @login_required(login_url='loginmenu')
 def addproduct(request):
@@ -123,6 +123,7 @@ def adding(request, dish_id):
         return dishinfo(request, dish_id)
     return dishinfo(request, dish_id)
 
+@login_required(login_url='loginmenu')
 def createweek(request):
     if request.method == 'POST':
         form = CreateWeekForm(request.POST)
@@ -131,7 +132,7 @@ def createweek(request):
             _createweek(days, request, form['name'].value())
             return redirect('mymenu')
         else:
-            categories = Category.objects.all()
+            categories = Category.objects.all()            
             return render(request, 'menu/createweek.html', {'categories': categories, 'error': "Нужно заполнить все поля"})
     else:
         categories = Category.objects.all()
@@ -140,6 +141,31 @@ def createweek(request):
 
 
 
+
+def _getallweek(listweek):
+    allWeek = list()
+    for i in listweek:
+            tmp = _weekDish(i)          
+            allDishes = ListDishesWeek.objects.filter(week=i)          
+            for ii in allDishes:                
+                allIngredients = Ingredient.objects.filter(dish=ii.dish)
+                _dishtmp = _dish(ii)
+                for ing in allIngredients:
+                    _dishtmp.ingredients.append(ing)
+                tmp.dishes.append(_dishtmp)  
+            allWeek.append(tmp)   
+    return allWeek    
+
+def _getalling(listweek):
+    alling = list()
+    for i in listweek:
+            tmp = _weekDish(i)          
+            allDishes = ListDishesWeek.objects.filter(week=i)          
+            for ii in allDishes:                
+                allIngredients = Ingredient.objects.filter(dish=ii.dish)                
+                for ing in allIngredients:
+                   alling.append(ing)               
+    return alling    
 
 def _getcategorybyday(form):
     days = list()
