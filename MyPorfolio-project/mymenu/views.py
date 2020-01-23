@@ -17,13 +17,12 @@ def main(request):
     try:  
         listweek = Week.objects.filter(user_id = request.user)
         allWeek = _getallweek(listweek)   
-        allIng = _getalling(listweek)   
-        print(allIng)     
+        allIng = _getalling(listweek)             
         if len(allWeek) > 0:
             return render(request, 'menu/index.html', {'week': allWeek[-1], 'ings': allIng})
         return render(request, 'menu/index.html', {'week': None, 'ings' : None})
     except:
-        return redirect('loginmenu')
+       return redirect('loginmenu')
 
 def signup(request):
     if request.method == 'POST':
@@ -124,6 +123,7 @@ def adding(request, dish_id):
         return dishinfo(request, dish_id)
     return dishinfo(request, dish_id)
 
+@login_required(login_url='loginmenu')
 def createweek(request):
     if request.method == 'POST':
         form = CreateWeekForm(request.POST)
