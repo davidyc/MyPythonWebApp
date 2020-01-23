@@ -19,8 +19,9 @@
     </div> 
   </div> 
   <div class="row">
-        {% for dish in week.dishes %} 
-          <div class="col-md-3">
+  <div class="col-md-1"> </div>   
+  <div class="col-md-8">
+        {% for dish in week.dishes %}           
             <div class="card" style="width: 18rem;">
                 <img class="card-img-top" src="https://is2-ssl.mzstatic.com/image/thumb/Purple4/v4/ab/80/50/ab8050d9-d0f6-51d7-8c5e-122f4634ee27/source/512x512bb.jpg" alt="Card image cap">
                 <div class="card-body">
@@ -31,10 +32,19 @@
                     <li class="list-group-item">{{ing.product}}</li>
                   {% endfor %}           
                 </ul>
-            </div>
-          </div>
-        {% endfor %}       
-  </div>    
+            </div>          
+        {% endfor %}  
+  </div>   
+    <div class="col-md-2">    
+      <ul class="list-group">
+        <li class="list-group-item active">Список продуктов на неделю</li>
+        {% for ing in ings %}    
+          <li class="list-group-item">{{ing}}</li>    
+        {% endfor %}      
+      </ul>
+    </div>  
+  </div>  
+
 {% endif %}
 {% endblock  %}
 

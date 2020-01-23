@@ -16,10 +16,12 @@ from django.http import HttpResponse, HttpResponseNotFound
 def main(request):
     try:  
         listweek = Week.objects.filter(user_id = request.user)
-        allWeek = _getallweek(listweek)          
-        if len(allWeek)>0:
-            return render(request, 'menu/index.html', {'week': allWeek[-1]})
-        return render(request, 'menu/index.html', {'week': None})
+        allWeek = _getallweek(listweek)   
+        allIng = _getalling(listweek)   
+        print(allIng)     
+        if len(allWeek) > 0:
+            return render(request, 'menu/index.html', {'week': allWeek[-1], 'ings': allIng})
+        return render(request, 'menu/index.html', {'week': None, 'ings' : None})
     except:
         return redirect('loginmenu')
 
@@ -138,6 +140,8 @@ def createweek(request):
 
 
 
+
+
 def _getallweek(listweek):
     allWeek = list()
     for i in listweek:
@@ -150,7 +154,18 @@ def _getallweek(listweek):
                     _dishtmp.ingredients.append(ing)
                 tmp.dishes.append(_dishtmp)  
             allWeek.append(tmp)   
-    return allWeek     
+    return allWeek    
+
+def _getalling(listweek):
+    alling = list()
+    for i in listweek:
+            tmp = _weekDish(i)          
+            allDishes = ListDishesWeek.objects.filter(week=i)          
+            for ii in allDishes:                
+                allIngredients = Ingredient.objects.filter(dish=ii.dish)                
+                for ing in allIngredients:
+                   alling.append(ing)               
+    return alling    
 
 def _getcategorybyday(form):
     days = list()
