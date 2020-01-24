@@ -33,11 +33,19 @@ class DishSerializer(serializers.Serializer):
     dishcategory = CategorySerializer()
 
     def create(self, validated_data):
+        category_data = validated_data.pop('dishcategory', None)         
+        if category_data:
+            category = Category.objects.get_or_create(**category_data)[0]
+            validated_data['dishcategory'] = category                 
         return Dish.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
         instance.discription = validated_data.get('discription', instance.discription)
-        instance.dishcategory = validated_data.get('dishcategory', instance.dishcategory)
+        category_data = validated_data.pop('dishcategory', None)         
+        if category_data:
+            category = Category.objects.get_or_create(**category_data)[0]
+            validated_data['dishcategory'] = category         
+        instance.dishcategory = category
         instance.save()
         return instance
