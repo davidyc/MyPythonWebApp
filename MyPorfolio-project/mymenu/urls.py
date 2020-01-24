@@ -15,6 +15,7 @@ urlpatterns = [
     path('adding/<int:dish_id>', mymenu.views.adding, name='adding'),
     path('createweek', mymenu.views.createweek, name='createweek'),
 
+
     #apipart
     path('api/allproduct', mymenu.views.apiallprod),
     path('api/product/<int:pk>', mymenu.views.apiprod),
@@ -22,6 +23,8 @@ urlpatterns = [
     path('api/category/<int:pk>', mymenu.views.apicat),
     path('api/alldish', mymenu.views.apialldish),
     path('api/dish/<int:pk>', mymenu.views.apidish),
+    path('api/alling', mymenu.views.apialling),
+    path('api/ing/<int:pk>', mymenu.views.apiing),
 
 
  
