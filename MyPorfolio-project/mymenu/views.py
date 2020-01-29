@@ -121,6 +121,7 @@ def adding(request, dish_id):
         return dishinfo(request, dish_id)
     return dishinfo(request, dish_id)
 
+@login_required(login_url='loginmenu')
 def createweek(request):
     if request.method == 'POST':
         form = CreateWeekForm(request.POST)
@@ -240,7 +241,6 @@ def apiallcat(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
 @api_view(['GET', 'PUT', 'DELETE'])
 def apicat(request, pk):
     try:
@@ -263,7 +263,6 @@ def apicat(request, pk):
         category.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
 @api_view(['GET', 'POST'])
 def apialldish(request):
     if request.method == 'GET':
@@ -277,7 +276,6 @@ def apialldish(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def apidish(request, pk):
@@ -340,3 +338,40 @@ def apiing(request, pk):
         dish.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+@api_view(['GET', 'POST'])
+def apiallweek(request):
+    if request.method == 'GET':
+        ing = Ingredient.objects.all()
+        serializer = IngredientSerializer(ing, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = IngredientSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def apiweek(request, pk):
+    try:
+        ing = Ingredient.objects.get(pk=pk)
+    except Ingredient.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+       serializer = IngredientSerializer(ing)
+       return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = IngredientSerializer(ing, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        dish.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
