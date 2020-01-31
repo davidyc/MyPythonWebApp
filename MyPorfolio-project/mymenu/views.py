@@ -193,185 +193,174 @@ from .serializers import ProductSerializer, CategorySerializer, DishSerializer, 
 
 @api_view(['GET', 'POST'])
 def apiallprod(request):
-    if request.method == 'GET':
-        product = Product.objects.all()
-        serializer = ProductSerializer(product, many=True)
-        return Response(serializer.data)
+    if request.user.is_anonymous != True:
+        print(request.user.is_anonymous)
+        if request.method == 'GET':
+            product = Product.objects.all()
+            serializer = ProductSerializer(product, many=True)
+            return Response(serializer.data)
 
-    elif request.method == 'POST':
-        serializer = ProductSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        elif request.method == 'POST':
+            serializer = ProductSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response("Unauthorized", status=status.HTTP_401_UNAUTHORIZED)
+
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def apiprod(request, pk):
-    try:
-        product = Product.objects.get(pk=pk)
-    except Product.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.user.is_anonymous != True:
+        try:
+            product = Product.objects.get(pk=pk)
+        except Product.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'GET':
-       serializer = ProductSerializer(product)
-       return Response(serializer.data)
-
-    elif request.method == 'PUT':
-        serializer = ProductSerializer(product, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
+        if request.method == 'GET':
+            serializer = ProductSerializer(product)
             return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
-        product.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        elif request.method == 'PUT':
+            serializer = ProductSerializer(product, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        elif request.method == 'DELETE':
+            product.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+    else:
+        return Response("Unauthorized", status=status.HTTP_401_UNAUTHORIZED)
 
 @api_view(['GET', 'POST'])
 def apiallcat(request):
-    if request.method == 'GET':
-        categies = Category.objects.all()
-        serializer = CategorySerializer(categies, many=True)
-        return Response(serializer.data)
+    if request.user.is_anonymous != True:
+        if request.method == 'GET':
+            categies = Category.objects.all()
+            serializer = CategorySerializer(categies, many=True)
+            return Response(serializer.data)
 
-    elif request.method == 'POST':
-        serializer = CategorySerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        elif request.method == 'POST':
+            serializer = CategorySerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response("Unauthorized", status=status.HTTP_401_UNAUTHORIZED)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def apicat(request, pk):
-    try:
-        category = Category.objects.get(pk=pk)
-    except Product.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.user.is_anonymous != True:
+        try:
+            category = Category.objects.get(pk=pk)
+        except Product.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'GET':
-       serializer = CategorySerializer(category)
-       return Response(serializer.data)
-
-    elif request.method == 'PUT':
-        serializer = CategorySerializer(category, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
+        if request.method == 'GET':
+            serializer = CategorySerializer(category)
             return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
-        category.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        elif request.method == 'PUT':
+            serializer = CategorySerializer(category, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+        elif request.method == 'DELETE':
+            category.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+    else:
+        return Response("Unauthorized", status=status.HTTP_401_UNAUTHORIZED)
+    
+    
 @api_view(['GET', 'POST'])
 def apialldish(request):
-    if request.method == 'GET':
-        dish = Dish.objects.all()
-        serializer = DishSerializer(dish, many=True)
-        return Response(serializer.data)
+    if request.user.is_anonymous != True:
+        if request.method == 'GET':
+            dish = Dish.objects.all()
+            serializer = DishSerializer(dish, many=True)
+            return Response(serializer.data)
 
-    elif request.method == 'POST':
-        serializer = DishSerializer(data=request.data)        
-        if serializer.is_valid(): 
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        elif request.method == 'POST':
+            serializer = DishSerializer(data=request.data)        
+            if serializer.is_valid(): 
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response("Unauthorized", status=status.HTTP_401_UNAUTHORIZED)    
+    
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def apidish(request, pk):
-    try:
-        dish = Dish.objects.get(pk=pk)        
-    except Dish.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.user.is_anonymous != True:
+        try:
+            dish = Dish.objects.get(pk=pk)        
+        except Dish.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'GET':
-       serializer = DishSerializer(dish)
-       return Response(serializer.data)
-
-    elif request.method == 'PUT':
-        serializer = DishSerializer(dish, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
+        if request.method == 'GET':
+            serializer = DishSerializer(dish)
             return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
-        dish.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        elif request.method == 'PUT':
+            serializer = DishSerializer(dish, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+        elif request.method == 'DELETE':
+            dish.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+    else:
+        return Response("Unauthorized", status=status.HTTP_401_UNAUTHORIZED)    
 
 
 @api_view(['GET', 'POST'])
 def apialling(request):
-    if request.method == 'GET':
-        ing = Ingredient.objects.all()
-        serializer = IngredientSerializer(ing, many=True)
-        return Response(serializer.data)
+    if request.user.is_anonymous != True:
+        if request.method == 'GET':
+            ing = Ingredient.objects.all()
+            serializer = IngredientSerializer(ing, many=True)
+            return Response(serializer.data)
 
-    elif request.method == 'POST':
-        serializer = IngredientSerializer(data=request.data)        
-        if serializer.is_valid(): 
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+        elif request.method == 'POST':
+            serializer = IngredientSerializer(data=request.data)        
+            if serializer.is_valid(): 
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response("Unauthorized", status=status.HTTP_401_UNAUTHORIZED)    
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def apiing(request, pk):
-    try:
-        ing = Ingredient.objects.get(pk=pk)        
-    except Ingredient.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.user.is_anonymous != True:
+        try:
+            ing = Ingredient.objects.get(pk=pk)        
+        except Ingredient.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'GET':
-       serializer = IngredientSerializer(ing)
-       return Response(serializer.data)
-
-    elif request.method == 'PUT':
-        serializer = IngredientSerializer(ing, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
+        if request.method == 'GET':
+            serializer = IngredientSerializer(ing)
             return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
-        dish.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        elif request.method == 'PUT':
+            serializer = IngredientSerializer(ing, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+        elif request.method == 'DELETE':
+            dish.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+    else:
+        return Response("Unauthorized", status=status.HTTP_401_UNAUTHORIZED)    
 
-@api_view(['GET', 'POST'])
-def apiallweek(request):
-    if request.method == 'GET':
-        ing = Ingredient.objects.all()
-        serializer = IngredientSerializer(ing, many=True)
-        return Response(serializer.data)
-
-    elif request.method == 'POST':
-        serializer = IngredientSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['GET', 'PUT', 'DELETE'])
-def apiweek(request, pk):
-    try:
-        ing = Ingredient.objects.get(pk=pk)
-    except Ingredient.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-       serializer = IngredientSerializer(ing)
-       return Response(serializer.data)
-
-    elif request.method == 'PUT':
-        serializer = IngredientSerializer(ing, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        dish.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
