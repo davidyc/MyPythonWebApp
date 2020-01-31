@@ -305,8 +305,8 @@ def apidish(request, pk):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         if request.method == 'GET':
-            serializer = DishSerializer(dish)
-            return Response(serializer.data)
+        serializer = DishSerializer(dish)
+        return Response(serializer.data)
 
         elif request.method == 'PUT':
             serializer = DishSerializer(dish, data=request.data)
@@ -348,8 +348,8 @@ def apiing(request, pk):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         if request.method == 'GET':
-            serializer = IngredientSerializer(ing)
-            return Response(serializer.data)
+        serializer = IngredientSerializer(ing)
+        return Response(serializer.data)
 
         elif request.method == 'PUT':
             serializer = IngredientSerializer(ing, data=request.data)
@@ -361,6 +361,47 @@ def apiing(request, pk):
         elif request.method == 'DELETE':
             dish.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+@api_view(['GET', 'POST'])
+def apiallweek(request):
+    if request.user.is_anonymous != True:
+        if request.method == 'GET':
+            ing = Ingredient.objects.all()
+            serializer = IngredientSerializer(ing, many=True)
+            return Response(serializer.data)
+
+        elif request.method == 'POST':
+            serializer = IngredientSerializer(data=request.data)        
+            if serializer.is_valid(): 
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response("Unauthorized", status=status.HTTP_401_UNAUTHORIZED)    
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def apiweek(request, pk):
+    if request.user.is_anonymous != True:
+        try:
+            ing = Ingredient.objects.get(pk=pk)        
+        except Ingredient.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        if request.method == 'GET':
+        serializer = IngredientSerializer(ing)
+        return Response(serializer.data)
+
+        elif request.method == 'PUT':
+            serializer = IngredientSerializer(ing, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        elif request.method == 'DELETE':
+            dish.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
 
