@@ -189,7 +189,7 @@ def _createweek(days, request, name):
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import ProductSerializer, CategorySerializer, DishSerializer, IngredientSerializer
+from .serializers import ProductSerializer, CategorySerializer, DishSerializer, IngredientSerializer, WeekSerializer
 
 @api_view(['GET', 'POST'])
 def apiallprod(request):
@@ -305,8 +305,8 @@ def apidish(request, pk):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         if request.method == 'GET':
-        serializer = DishSerializer(dish)
-        return Response(serializer.data)
+            serializer = DishSerializer(dish)
+            return Response(serializer.data)
 
         elif request.method == 'PUT':
             serializer = DishSerializer(dish, data=request.data)
@@ -348,8 +348,8 @@ def apiing(request, pk):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         if request.method == 'GET':
-        serializer = IngredientSerializer(ing)
-        return Response(serializer.data)
+            serializer = IngredientSerializer(ing)
+            return Response(serializer.data)
 
         elif request.method == 'PUT':
             serializer = IngredientSerializer(ing, data=request.data)
@@ -367,12 +367,12 @@ def apiing(request, pk):
 def apiallweek(request):
     if request.user.is_anonymous != True:
         if request.method == 'GET':
-            ing = Ingredient.objects.all()
-            serializer = IngredientSerializer(ing, many=True)
+            ing = Week.objects.all()
+            serializer = WeekSerializer(ing, many=True)
             return Response(serializer.data)
 
         elif request.method == 'POST':
-            serializer = IngredientSerializer(data=request.data)        
+            serializer = WeekSerializer(data=request.data)        
             if serializer.is_valid(): 
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -384,13 +384,13 @@ def apiallweek(request):
 def apiweek(request, pk):
     if request.user.is_anonymous != True:
         try:
-            ing = Ingredient.objects.get(pk=pk)        
-        except Ingredient.DoesNotExist:
+            week = Week.objects.get(pk=pk)        
+        except Week.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         if request.method == 'GET':
-        serializer = IngredientSerializer(ing)
-        return Response(serializer.data)
+            serializer = WeekSerializer(week)
+            return Response(serializer.data)
 
         elif request.method == 'PUT':
             serializer = IngredientSerializer(ing, data=request.data)

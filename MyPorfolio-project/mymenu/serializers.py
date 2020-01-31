@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.contrib.auth.models import User
 from .models import Product, Category, Dish, Ingredient, Week, ListDishesWeek, _weekDish, _dish
 
 
@@ -80,16 +81,26 @@ class IngredientSerializer(serializers.Serializer):
         return instance
 
 
+class UserSerelization(serializers.Serializer):
+    username = serializers.CharField(max_length=50)   
+
 class WeekSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(max_length=50)   
+    user = UserSerelization()
     
     def create(self, validated_data):
         week_data = validated_data.pop('name', None)
         if week_data:
             week = Week.objects.get_or_create(**week_data)[0]
             validated_data['week'] = week      
-        return week.objects.create(**validated_data)
+            user_data = validated_data.pop('user', None)   
+            if user_data:
+                user = User.objects.get_or_create(**user_data)[0]
+                print(user)
+                validated_data['user'] = user          
+            
+        return Week.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
