@@ -15,10 +15,21 @@ urlpatterns = [
     path('adding/<int:dish_id>', mymenu.views.adding, name='adding'),
     path('createweek', mymenu.views.createweek, name='createweek'),
 
+
     #apipart
-    path('api/allproduct', mymenu.views.ProductView.as_view()),
-    path('api/allproduct/<int:pk>', mymenu.views.ProductView.as_view()),
-    path('api/alldish', mymenu.views.DishView.as_view()),
+    path('api/allproduct', mymenu.views.apiallprod),
+    path('api/product/<int:pk>', mymenu.views.apiprod),
+    path('api/allcategory', mymenu.views.apiallcat),
+    path('api/category/<int:pk>', mymenu.views.apicat),
+    path('api/alldish', mymenu.views.apialldish),
+    path('api/dish/<int:pk>', mymenu.views.apidish),
+    path('api/alling', mymenu.views.apialling),
+    path('api/ing/<int:pk>', mymenu.views.apiing),
+    path('api/allweek', mymenu.views.apiallweek),
+    path('api/week/<int:pk>', mymenu.views.apiweek),
+    path('api/alllistdish', mymenu.views.apialllistdish),
+    path('api/listdish/<int:pk>', mymenu.views.apilistdish),
+
 
  
     
