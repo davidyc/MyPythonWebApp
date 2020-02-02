@@ -189,7 +189,7 @@ def _createweek(days, request, name):
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import ProductSerializer, CategorySerializer, DishSerializer, IngredientSerializer, WeekSerializer
+from .serializers import ProductSerializer, CategorySerializer, DishSerializer, IngredientSerializer, WeekSerializer, ListDishesWeekSerelization
 
 @api_view(['GET', 'POST'])
 def apiallprod(request):
@@ -393,15 +393,58 @@ def apiweek(request, pk):
             return Response(serializer.data)
 
         elif request.method == 'PUT':
-            serializer = IngredientSerializer(ing, data=request.data)
+            serializer = WeekSerializer(week, data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         elif request.method == 'DELETE':
-            dish.delete()
+            week.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
     
+
+@api_view(['GET', 'POST'])
+def apialllistdish(request):
+    if request.user.is_anonymous != True:
+        if request.method == 'GET':
+            listweek = ListDishesWeek.objects.all()
+            serializer = ListDishesWeekSerelization(listweek, many=True)
+            return Response(serializer.data)
+
+        elif request.method == 'POST':
+            serializer = ListDishesWeekSerelization(data=request.data)        
+            if serializer.is_valid(): 
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response("Unauthorized", status=status.HTTP_401_UNAUTHORIZED)    
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def apilistdish(request, pk):
+    if request.user.is_anonymous != True:
+        try:
+            listdish = ListDishesWeek.objects.get(pk=pk)        
+        except ListDishesWeek.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        if request.method == 'GET':
+            serializer = ListDishesWeekSerelization(listdish)
+            return Response(serializer.data)
+
+        elif request.method == 'PUT':
+            serializer = ListDishesWeekSerelization(listdish, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        elif request.method == 'DELETE':
+            listdish.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+
 
 

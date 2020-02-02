@@ -82,6 +82,7 @@ class IngredientSerializer(serializers.Serializer):
 
 
 class UserSerelization(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
     username = serializers.CharField(max_length=50)   
 
 class WeekSerializer(serializers.Serializer):
@@ -90,15 +91,12 @@ class WeekSerializer(serializers.Serializer):
     user = UserSerelization()
     
     def create(self, validated_data):
-        week_data = validated_data.pop('name', None)
-        if week_data:
-            week = Week.objects.get_or_create(**week_data)[0]
-            validated_data['week'] = week      
-            user_data = validated_data.pop('user', None)   
-            if user_data:
-                user = User.objects.get_or_create(**user_data)[0]
-                print(user)
-                validated_data['user'] = user          
+        week_data = validated_data.pop('name', None)        
+        user_data = validated_data.pop('user', None)   
+        if user_data:
+            user = User.objects.get_or_create(**user_data)[0]
+            validated_data['user'] = user         
+            validated_data['name'] = week_data       
             
         return Week.objects.create(**validated_data)
 
@@ -106,3 +104,20 @@ class WeekSerializer(serializers.Serializer):
         instance.name = validated_data.get('name', instance.name)
         instance.save()
         return instance
+    
+class ListDishesWeekSerelization(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    dish = DishSerializer()
+    week = WeekSerializer()
+
+    def create(self, validated_data):
+        dish_data = validated_data.pop('dish', None)        
+        week_data = validated_data.pop('week', None)   
+        if week_data:
+            week = Week.objects.get_or_create(**week_data)[0]                
+            validated_data['week'] = week       
+            if dish_data:
+                dish = Dish.objects.get_or_create(**week_data)[0]  
+                validated_data['dish'] = dish    
+            
+        return ListDishesWeek.objects.create(**validated_data)

@@ -27,6 +27,8 @@ urlpatterns = [
     path('api/ing/<int:pk>', mymenu.views.apiing),
     path('api/allweek', mymenu.views.apiallweek),
     path('api/week/<int:pk>', mymenu.views.apiweek),
+    path('api/alllistdish', mymenu.views.apialllistdish),
+    path('api/listdish/<int:pk>', mymenu.views.apilistdish),
 
 
  
