@@ -112,12 +112,23 @@ class ListDishesWeekSerelization(serializers.Serializer):
 
     def create(self, validated_data):
         dish_data = validated_data.pop('dish', None)        
-        week_data = validated_data.pop('week', None)   
-        if week_data:
-            week = Week.objects.get_or_create(**week_data)[0]                
-            validated_data['week'] = week       
+        week_data = validated_data.pop('week', None)  
+        if week_data:            
+            week = Week.objects.filter(name =  week_data['name'])               
+            validated_data['week'] = week[0]      
             if dish_data:
-                dish = Dish.objects.get_or_create(**week_data)[0]  
-                validated_data['dish'] = dish    
-            
+                dish = Dish.objects.filter(name =  dish_data['name'])
+                validated_data['dish'] = dish[0]             
         return ListDishesWeek.objects.create(**validated_data)
+    
+    def update(self, instance, validated_data):
+        dish_data = validated_data.pop('dish', None)        
+        week_data = validated_data.pop('week', None)  
+        if week_data:            
+            week = Week.objects.filter(name =  week_data['name'])               
+            validated_data['week'] = week[0]      
+            if dish_data:
+                dish = Dish.objects.filter(name =  dish_data['name'])
+                instance.dish  = dish[0]    
+        instance.save()
+        return instance
