@@ -1,0 +1,18 @@
+FROM ubuntu
+
+RUN apt update
+RUN apt install python3.8 -y
+RUN apt install python3-pip -y
+
+RUN pip3 install django
+RUN pip3 install djangorestframework
+RUN pip3 install apiai
+RUN pip3 install Pillow
+
+RUN mkdir -p /mypython
+
+COPY .  /mypython/
+
+WORKDIR /mypython/MyPythonWebApp/MyPorfolio-project
+
+CMD ["python3.8","manage.py", "runserver", "0.0.0.0:1917"]
