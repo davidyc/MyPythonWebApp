@@ -8,6 +8,7 @@ class Job(models.Model):
     adddate = models.DateField(auto_now=True)
     shortname = models.CharField(max_length=10, default="")
     externalurl = models.CharField(max_length=200, default="Internal deploy", null=True)
+    isexrernalurl = models.BooleanField(default = False)
 
 
     def __srt__(self):
