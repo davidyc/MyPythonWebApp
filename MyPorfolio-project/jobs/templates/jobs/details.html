@@ -1,6 +1,6 @@
 {% extends 'jobs/mainpart.html' %}
 
-{% block content %} 
+{% block content %}
     <main role="main">
       <section class="jumbotron text-center">
         <div class="container">
@@ -8,9 +8,13 @@
           <p class="lead text-muted">{{job.description}}</p>
           <img class="card-img-top" src="{{job.image.url}}" height=300>
           <p>
-            <a href='{{job.shortname}}' class="btn btn-primary my-2">Look It</a>
+            {% if job.isexrernalurl %}
+                <a href='{{job.externalurl}}' class="btn btn-primary my-2">Look It</a>
+            {% else %}
+                <a href='{{job.shortname}}' class="btn btn-primary my-2">Look It</a>
+            {% endif %}
             <a href="{% url 'Home' %}" class="btn btn-primary my-2">Back</a>
-          </p>      
+          </p>
         </div>
       </section>
     </main>
