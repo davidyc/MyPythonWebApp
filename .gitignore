@@ -1,7 +1,6 @@
 MyPorfolio-project/evolution/__pycache__
 MyPorfolio-project/jobs/__pycache__
 MyPorfolio-project/MyPorfolio/__pycache__
-
 MyPorfolio-project/evolution/migrations/__pycache__/
 
 MyPorfolio-project/jobs/migrations/__pycache__/
@@ -13,4 +12,3 @@ MyPorfolio-project/mymenu/migrations/__pycache__/
 MyPorfolio-project/simplebot/__pycache__/
 
 MyPorfolio-project/simplebot/migrations/__pycache__/
->>>>>>> development
