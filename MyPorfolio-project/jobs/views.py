@@ -7,6 +7,9 @@ def main(request):
     devs = Developer.objects
     return render(request, 'jobs/index.html', {'jobs': jobs, 'devs': devs})
 
+def external(request):
+    return render(request, 'jobs/index.html')
+
 def details(request, job_id):
     job_detail = get_object_or_404(Job, pk=job_id)
     return render(request, 'jobs/details.html',{'job': job_detail})
