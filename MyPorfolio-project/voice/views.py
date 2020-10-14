@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from .models import Candidate
 
 # Create your views here.
 def main(request):   
-    return render(request, 'voice/index.html')
+    candidates = Candidate.objects
+    return render(request, 'voice/index.html' )

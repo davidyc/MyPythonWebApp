@@ -4,8 +4,14 @@ from django.db import models
 
 class Candidate(models.Model):
     name = models.CharField(max_length=30)  
-   
-   
 
     def __str__(self):
-        return "Кандидат".format(self.name)
+        return "Кандидат {}".format(self.name)
+
+class Voice(models.Model):
+    name = models.CharField(max_length=50)  
+    candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE)
+    
+
+    def __str__(self):
+        return "{} проголосовал за {}".format(self.name, self.candidate.name)
