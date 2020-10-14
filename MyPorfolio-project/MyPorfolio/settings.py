@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'evolution',
     'simplebot',
     'mymenu',
+    'voice',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,21 @@
+{% extends 'voice/mainpart.html' %}
+
+{% block content %} 
+    <body class="text-center">
+      <br><br><br><br><br><br><br><br><br>
+      
+    <center>
+    <div class="col-2">
+        <form class="form-signin" method="GET"  action="{% url 'voite' %}">   
+            {% csrf_token %}            
+               
+            <br>  
+            <br>
+            
+            <input type="submit" class="btn btn-success" value="Сделать выбор">
+        </form>
+      </div>
+    </center>
+    </body>
+{% endblock  %}
+
