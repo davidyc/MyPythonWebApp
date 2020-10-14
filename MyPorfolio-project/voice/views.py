@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Candidate
+from .models import Candidate, Voice
 from .forms import VoiceForm
 
 # Create your views here.
@@ -15,3 +15,7 @@ def voite(request):
             form.save()           
             return redirect('voited')   
     return render(request, 'voice/voited.html')
+
+def show_allvoites(request):   
+    voices = Voice.objects.all()
+    return render(request, 'voice/showall.html', {"voices" : voices})

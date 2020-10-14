@@ -1,0 +1,27 @@
+{% extends 'voice/mainpart.html' %}
+
+{% block content %} 
+<div class="row"> 
+  <div class="col-md-1"></div>   
+  <div class="col-md-10">
+    <table class="table table-dark">
+      <thead>
+        <tr>      
+          <th scope="col">Имя</th>
+          <th scope="col">Кандидат</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for voice in voices %}    
+        <tr>       
+          <td>{{voice.name}}</td>
+          <td>{{voice.candidate.name}}</td>         
+        </tr>             
+      {% endfor%}     
+      </tbody>
+    </table> 
+  </div>  
+  <div class="col-md-1"></div>   
+</div>
+{% endblock  %}
+
