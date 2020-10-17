@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .models import Candidate, Voice
 from .forms import VoiceForm
 
@@ -24,6 +25,7 @@ def voite(request):
             return redirect('voited')   
     return render(request, 'voice/voited.html')
 
+@login_required(login_url='loginmenu')
 def show_allvoites(request): 
     htmldict = dict()  
     allcand = list()
@@ -41,6 +43,8 @@ def detele_voice(request, voice_id):
     voice = get_object_or_404(Voice, id=voice_id)
     voice.delete()
     return redirect('showall')   
+
+
 
 def _add_to_dict(key, value, newdict = dict()):
     newdict[key] = value
