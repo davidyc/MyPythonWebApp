@@ -6,7 +6,8 @@ from .models import Voice
 class VoiceForm(ModelForm):
     class Meta:
         model = Voice
-        fields = ['name', 'candidate']
+        fields = ['name', 'level', 'candidate']
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'Ваше ФИО',"class":'form-control'})
+            'name': forms.TextInput(attrs={'placeholder': 'Ваше ФИО',"class":'form-control'}),
+            'level': forms.TextInput(attrs={'placeholder': 'Ваш класс',"class":'form-control'})
         }
