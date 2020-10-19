@@ -17,6 +17,7 @@ urlpatterns = [
     path('jobs/evo/', include('evolution.urls')),
     path('jobs/bot/', include('simplebot.urls')),    
     path('jobs/mymenu/', include('mymenu.urls')),
+    path('jobs/voite/', include('voice.urls')),
    
 ] 
 

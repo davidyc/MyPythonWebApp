@@ -1,0 +1,33 @@
+{% extends 'voice/mainpart.html' %}
+
+{% block content %} 
+    <body class="text-center">
+      <br><br><br><br><br><br><br><br><br>
+      
+    <center>
+      <div class="col-8">
+      <h4>Пожалуйста, запишите свое имя, фамилию и класс.
+        В голосовании принимают участие учителя и ученики АСШ#2, посторонние голоса учитываться не будут!</h4>
+       </div>
+    <div class="col-10">
+        <form class="form-signin" method="POST"  action="{% url 'voited' %}">   
+              {% csrf_token %}   
+                          <div class="form-group">
+                <label for="InputWord">
+                <label for="InputWord">Ваше имя и фамилия</label>
+                {{form.name}}
+                <label for="InputWord">Ваш класс</label>
+                {{form.level}}
+              </div>
+              <div class="form-group">
+                <label for="InputWord2">Выберите кандидата :</label>
+                {{form.candidate}}
+              </div>    
+            <br>            
+            <button type="submit" class="btn btn-primary">Сделать выбор</button>
+        </form>
+      </div>
+    </center>
+    </body>
+{% endblock  %}
+

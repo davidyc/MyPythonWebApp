@@ -28,7 +28,6 @@ DEBUG = True
 #ALLOWED_HOSTS = [] #local
 ALLOWED_HOSTS = ['80.249.146.55'] 
 
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -42,6 +41,7 @@ INSTALLED_APPS = [
     'evolution',
     'simplebot',
     'mymenu',
+    'voice',
 ]
 
 MIDDLEWARE = [
