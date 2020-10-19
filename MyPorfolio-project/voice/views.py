@@ -39,6 +39,19 @@ def show_allvoites(request):
         _add_to_dict("CandWithVoices", allcand, htmldict )
     return render(request, 'voice/showall.html', htmldict)
 
+def show_count(request):
+    #VoiceCounts
+    htmldict = dict() 
+    allcand = list() 
+    cands = Candidate.objects.all()
+    voices = Voice.objects.all()    
+    for cand in cands: 
+        cand_voices = Voice.objects.filter(candidate=cand)
+        tmp = CandidateVoice(cand.name, len(cand_voices), None)
+        allcand.append(tmp)
+    _add_to_dict("VoiceCounts", allcand, htmldict)
+    return render(request, 'voice/showcount.html', htmldict)
+
 def detele_voice(request, voice_id):
     voice = get_object_or_404(Voice, id=voice_id)
     voice.delete()

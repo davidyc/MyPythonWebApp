@@ -1,0 +1,28 @@
+{% extends 'voice/mainpart.html' %}
+
+{% block content %} 
+<main role="main" class="col-md-4 ml-sm-auto col-lg-11">
+  <canvas class="my-4 w-100" id="myChart" width="900" height="0"></canvas>  
+  <h2>Результаты</h2>
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>              
+          <th>Кандидат</th>      
+          <th>Голосов</th>  
+        </tr>
+      </thead>
+        {% for voiceCount in VoiceCounts%}        
+              <tbody>  
+                <tr>       
+                  <td>{{voiceCount.name}}</td>         
+                  <td>{{voiceCount.count}}</td>   
+                </tr>      
+              </tbody>
+        
+        {% endfor%} 
+    </table>
+    </div> 
+</main>
+{% endblock  %}
+
