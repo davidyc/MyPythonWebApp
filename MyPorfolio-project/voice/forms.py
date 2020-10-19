@@ -8,6 +8,6 @@ class VoiceForm(ModelForm):
         model = Voice
         fields = ['name', 'level', 'candidate']
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'Ваше ФИО',"class":'form-control'}),
+            'name': forms.TextInput(attrs={'placeholder': 'Ваше имя и фамилия',"class":'form-control'}),
             'level': forms.TextInput(attrs={'placeholder': 'Ваш класс',"class":'form-control'})
         }
