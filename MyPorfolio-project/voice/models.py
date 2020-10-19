@@ -10,6 +10,7 @@ class Candidate(models.Model):
 
 class Voice(models.Model):
     name = models.CharField(max_length=50)  
+    level = models.CharField(max_length=25, default="Не указан")  
     candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE)
     
 
