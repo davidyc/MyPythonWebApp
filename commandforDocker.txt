@@ -1,4 +1,4 @@
-docker build -t mydjzngo . 
+docker build -t myportpholio . 
 строим образ на основе докер файла
-docker run --rm -it -p 8000:8000  mydjango 
+docker run --rm -it -p 8000:8000  myportpholio 
 запускаем докер контейнер на основе образа
